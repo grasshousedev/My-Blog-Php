@@ -5,8 +5,8 @@
             <div class="footer-section about col-md-4 col-12">
                 <h3 class="logo-text">Мой блог</h3>
                 <p>
-Мой блог - это блог сделанный с целью обучиться созданию веб сайтов с нуля
-</p>
+                    Мой блог - это блог сделанный с целью обучиться созданию веб сайтов с нуля
+                </p>
                 <div class="contact">
                     <span><i class="fas fa-phone"></i> &nbsp; 123-345-567</span>
                     <span><i class="fas fa-envelope"></i> &nbsp; info@myblog.com</span>
@@ -47,13 +47,13 @@
                               placeholder="Ваше сообщение..."></textarea>
                     <button type="submit" class="btn btn-big contact-btn">
                         <i class="fas fa-envelope"></i>
-Отправить
+                        Отправить
                     </button>
                 </form>
             </div>
         </div>
         <div class="footer-bottom">
             &copy; myblog.com | Designed by Ruslan Gavrilenko
-</div>
+        </div>
     </div>
 </div>
