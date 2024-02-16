@@ -53,7 +53,7 @@ include("app/controllers/users.php");
         </div>
         <div class="w-100"></div>
         <div class="col-12 col-md-4 mb-5">
-            <button type="submit" class="btn btn-secondary" name="button">Регистрация</button>
+            <button type="submit" class="btn btn-secondary" name="button-reg">Регистрация</button>
             <a href="auth.php">Войти</a>
         </div>
     </form>

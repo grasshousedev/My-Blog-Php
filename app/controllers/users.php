@@ -2,7 +2,8 @@
 include('app/database/db.php');
 $statusMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Код для перехода со страницы регистрации
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
     $admin = 0;
     $login = trim($_POST['login']);
     $email = trim($_POST['email']);
@@ -28,20 +29,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'password' => $password_hashed
         ];
         $id = insert('users', $post);
-        $user = selectAny('users', ['id' => $id], 1);
-        $_SESSION['id'] = $user['id'];
-        $_SESSION['login'] = $user['username'];
-        $_SESSION['admin'] = $user['admin'];
-
-        if($_SESSION['admin']) {
-            header('location: ' . BASE_URL . 'admin/admin.php');
-        } else {
-            header('location: ' . BASE_URL);
-        }
+        $user = selectAny('users', ['id' => $id]);
+        createUserSession($user);
 
     }
 
 } else {
     $login = '';
     $email = '';
+}
+
+// Код для авторизации
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['button-auth'])) {
+    $login = trim($_POST['login']);
+    $password = trim($_POST['password']);
+    if ($login === '' || $password === '') {
+        $statusMessage = "Не все поля заполнены!";
+    } else {
+        $user = selectAny('users', ["username" => $login]);
+        if ($user && password_verify($password, $user['password'])) {
+            createUserSession($user);
+        } else {
+            $statusMessage = "Имя пользователя или пароль введены неверно";
+        }
+    }
+} else {
+    $login = '';
+}
+function createUserSession($user)
+{
+    $_SESSION['id'] = $user['id'];
+    $_SESSION['login'] = $user['username'];
+    $_SESSION['admin'] = $user['admin'];
+
+    if ($_SESSION['admin']) {
+        header('location: ' . BASE_URL . 'admin/admin.php');
+    } else {
+        header('location: ' . BASE_URL);
+    }
 }

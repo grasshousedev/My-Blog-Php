@@ -19,13 +19,13 @@
                             </a>
                             <ul>
                                 <?php if($_SESSION['admin']): ?>
-                                <li><a href="auth.php">Админ панель</a></li>
+                                <li><a href="<?=BASE_URL . 'admin/admin.php'?>">Админ панель</a></li>
                                 <?php endif;?>
                                 <li><a href="#">Профиль</a></li>
-                                <li><a href="#">Выйти</a></li>
+                                <li><a href="<?= BASE_URL . 'logout.php'?>">Выйти</a></li>
                             </ul>
                         <?php else:?>
-                            <a href="<?=BASE_URL . 'log.php'?>">
+                            <a href="<?=BASE_URL . 'auth.php'?>">
                                 <i class="fa fa-user"></i>
                                 Войти
                             </a>

@@ -1,6 +1,10 @@
-<?php include("path.php") ?>
+<?php
+include("path.php");
+include("app/controllers/users.php");
+?>
+
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,20 +25,24 @@
 
 <!--FORM-->
 <div class="container reg_form">
-    <form class="row justify-content-center" method="post" action="auth.html">
+    <form class="row justify-content-center" method="post" action="auth.php">
         <h2>Авторизация</h2>
-        <div class="mb-3 col-12 col-md-4">
-            <label for="formGroupExampleInput" class="form-label">Имя пользователя</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин">
+        <div class="mb-3 col-12 col-md-4 err">
+            <p><?=$statusMessage?></p>
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="exampleInputPassword1" class="form-label">Пароль</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="login" class="form-label">Имя пользователя</label>
+            <input name="login" value="<?=$login?>" type="text" class="form-control" id="login" placeholder="Введите ваш логин">
+        </div>
+        <div class="w-100"></div>
+        <div class="mb-3 col-12 col-md-4">
+            <label for="password" class="form-label">Пароль</label>
+            <input name="password" type="password" class="form-control" id="password">
         </div>
         <div class="w-100"></div>
         <div class="col-12 col-md-4 mb-5">
-            <button type="submit" class="btn btn-secondary">Войти</button>
+            <button type="submit" class="btn btn-secondary" name="button-auth">Войти</button>
             <a href="reg.php">Регистрация</a>
         </div>
     </form>
