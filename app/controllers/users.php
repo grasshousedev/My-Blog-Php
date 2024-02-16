@@ -1,6 +1,5 @@
 <?php
 include('app/database/db.php');
-
 $statusMessage = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,7 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'password' => $password_hashed
         ];
         $id = insert('users', $post);
-        $statusMessage = "<span style='color: green; font-size: 18px;''>Пользователь <strong> $login </strong> успешно зарегистрирован!</span>";
+        $user = selectAny('users', ['id' => $id], 1);
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['login'] = $user['username'];
+        $_SESSION['admin'] = $user['admin'];
+
+        if($_SESSION['admin']) {
+            header('location: ' . BASE_URL . 'admin/admin.php');
+        } else {
+            header('location: ' . BASE_URL);
+        }
+
     }
 
 } else {
