@@ -1,1 +1,65 @@
 @import url(style.css);
+
+/*
+SIDEBAR
+ */
+
+.sidebar {
+    background: #006669;
+    margin: 1rem 0;
+    min-height: 600px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #d3d3d3;
+}
+
+.sidebar ul a {
+    padding: 18px;
+    display: block;
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar ul a:hover {
+    padding-left: 10px;
+    transition: all 0.3s;
+    color: #d3d3d3;
+    text-decoration: none;
+}
+
+.posts {
+    height: 100%;
+    padding: 40px 100px 100px;
+    overflow-y: scroll;
+}
+
+.posts h2 {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.posts .title-table div {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #d3d3d3;
+    font-weight: 600;
+}
+
+.posts .post div {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #d3d3d3;
+}
+.posts .post div.edit {
+    color: #006669;
+}
+.posts .post div.delete {
+    color: red;
+}
+
+.posts .post .id {
+    font-weight: bold;
+}
