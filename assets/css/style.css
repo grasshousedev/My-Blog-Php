@@ -195,3 +195,8 @@ Footer
     padding-top: 20px;
 }
 
+form div.err p {
+    color: red;
+    font-style: italic;
+    font-size: 0.8rem;
+}

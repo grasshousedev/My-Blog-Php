@@ -1,5 +1,5 @@
 <?php
-include('app/database/db.php');
+require_once('app/database/db.php');
 $statusMessage = '';
 
 // Код для перехода со страницы регистрации

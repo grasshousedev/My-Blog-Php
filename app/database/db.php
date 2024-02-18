@@ -24,7 +24,7 @@ function dbCheckError($query)
 }
 
 // Запрос на получение определенного количества данных с одной таблицы
-function selectAny($table, $params = [], $number = 1)
+function selectAny($table, $params = [], $number = 0)
 {
     global $pdo;
     $sql = "SELECT * FROM $table";
@@ -39,7 +39,8 @@ function selectAny($table, $params = [], $number = 1)
             $i++;
         }
     }
-    $sql = $sql . " LIMIT $number";
+    if($number != 0)
+        $sql = $sql . " LIMIT $number";
 
 
     $query = $pdo->prepare($sql);

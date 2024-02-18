@@ -1,5 +1,5 @@
 <?php include("../../path.php") ?>
-<?php include("../../app/database/db.php") ?>
+<?php include("../../app/controllers/categories.php") ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,22 +26,26 @@
         <div class="posts col-9">
             <?php require_once("../../app/include/buttons_admin.php") ?>
 
-            <div class="row title-table">
-                <h2>Добавить категорию</h2>
-            </div>
+
             <div class="row add-post">
                 <form action="create.php" method="POST">
+                    <div class="row title-table">
+                        <h2>Добавить категорию</h2>
+                    </div>
+                    <div class="mb-3 col err">
+                        <p><?=$statusMessage?></p>
+                    </div>
                     <div class="col mb-3">
                         <label for="title" class="form-label">Имя категории</label>
-                        <input type="text" class="form-control" id="title" placeholder="Имя категории..."
+                        <input value="<?=$name?>" type="text" name="name" class="form-control" id="title" placeholder="Имя категории..."
                                aria-label="Название статьи">
                     </div>
                     <div class="col mb-3">
                         <label for="content" class="form-label">Описание категории</label>
-                        <textarea class="form-control" id="content" rows="6"></textarea>
+                        <textarea name="description" class="form-control" id="content" rows="6"><?=$description?> </textarea>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary" type="submit">Сохранить категорию</button>
+                        <button name="category-create" class="btn btn-primary" type="submit">Сохранить категорию</button>
                     </div>
                 </form>
             </div>

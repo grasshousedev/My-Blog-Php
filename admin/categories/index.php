@@ -18,7 +18,9 @@
 </head>
 <body>
 
-<?php include("../../app/include/header_admin.php"); ?>
+<?php include("../../app/include/header_admin.php");
+include("../../app/controllers/categories.php"); ?>
+
 <div class="container">
     <div class="row">
         <?php require_once("../../app/include/sidebar_admin.php"); ?>
