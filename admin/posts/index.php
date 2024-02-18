@@ -36,9 +36,9 @@
         </div>
         <div class="posts col-9">
             <div class="button row">
-                <a class="btn btn-success col-3" href="create.php">Добавить пост</a>
+                <a class="btn btn-success col-3" href="create.php">Создать</a>
                 <span class="col-1"></span>
-                <a class="btn btn-warning col-3" href="index.php">Изменить посты</a>
+                <a class="btn btn-warning col-3" href="index.php">Управление</a>
             </div>
             <div class="row title-table">
                 <h2>Управление записями</h2>
