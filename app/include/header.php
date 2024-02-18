@@ -19,7 +19,7 @@
                             </a>
                             <ul>
                                 <?php if($_SESSION['admin']): ?>
-                                <li><a href="<?=BASE_URL . 'admin/admin.php'?>">Админ панель</a></li>
+                                <li><a href="<?=BASE_URL . 'admin/posts/index.php'?>">Админ панель</a></li>
                                 <?php endif;?>
                                 <li><a href="#">Профиль</a></li>
                                 <li><a href="<?= BASE_URL . 'logout.php'?>">Выйти</a></li>

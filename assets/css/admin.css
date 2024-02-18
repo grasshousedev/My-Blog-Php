@@ -38,7 +38,7 @@ SIDEBAR
 
 .posts h2 {
     text-align: center;
-    margin: 2rem 0 0 0.4rem;
+    margin: 2rem 0 1rem 0;
 }
 
 .posts .title-table div {
@@ -64,6 +64,6 @@ SIDEBAR
     font-weight: bold;
 }
 
-.add-post form div {
-    margin: 2rem 0;
-}
+/*.add-post form div {*/
+/*    margin: 2rem 0;*/
+/*}*/

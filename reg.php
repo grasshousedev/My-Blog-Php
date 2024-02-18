@@ -32,24 +32,24 @@ include("app/controllers/users.php");
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="formGroupExampleInput" class="form-label">Имя пользователя</label>
-            <input name="login" value="<?=$login?>" type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите ваш логин">
+            <label for="login" class="form-label">Имя пользователя</label>
+            <input name="login" value="<?=$login?>" type="text" class="form-control" id="login" placeholder="Введите ваш логин">
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
-            <input name="email" value="<?=$email?>" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label for="email" class="form-label">Адрес электронной почты</label>
+            <input name="email" value="<?=$email?>" type="email" class="form-control" id="email" aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">Мы не присылаем спам на ваш email</div>
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="exampleInputPassword1" class="form-label">Пароль</label>
-            <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+            <label for="password" class="form-label">Пароль</label>
+            <input name="password" type="password" class="form-control" id="password">
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-            <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-            <input name="password_check" type="password" class="form-control" id="exampleInputPassword2">
+            <label for="password-verify" class="form-label">Повторите пароль</label>
+            <input name="password_check" type="password" class="form-control" id="password-verify">
         </div>
         <div class="w-100"></div>
         <div class="col-12 col-md-4 mb-5">

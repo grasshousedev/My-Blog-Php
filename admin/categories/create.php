@@ -21,36 +21,22 @@
 <?php include("../../app/include/header_admin.php"); ?>
 <div class="container">
     <div class="row">
-        <div class="sidebar col-3">
-            <ul>
-                <li>
-                    <a href="">Записи</a>
-                </li>
-                <li>
-                    <a href="">Пользователи</a>
-                </li>
-                <li>
-                    <a href="">Категории</a>
-                </li>
-            </ul>
-        </div>
+        <?php require_once("../../app/include/sidebar_admin.php"); ?>
+
         <div class="posts col-9">
-            <div class="button row">
-                <a class="btn btn-success col-3" href="create.php">Создать</a>
-                <span class="col-1"></span>
-                <a class="btn btn-warning col-3" href="index.php">Управление</a>
-            </div>
+            <?php require_once("../../app/include/buttons_admin.php") ?>
+
             <div class="row title-table">
                 <h2>Добавить категорию</h2>
             </div>
             <div class="row add-post">
                 <form action="create.php" method="POST">
-                    <div class="col">
+                    <div class="col mb-3">
                         <label for="title" class="form-label">Имя категории</label>
                         <input type="text" class="form-control" id="title" placeholder="Имя категории..."
                                aria-label="Название статьи">
                     </div>
-                    <div class="col">
+                    <div class="col mb-3">
                         <label for="content" class="form-label">Описание категории</label>
                         <textarea class="form-control" id="content" rows="6"></textarea>
                     </div>

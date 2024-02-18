@@ -21,45 +21,31 @@
 <?php include("../../app/include/header_admin.php"); ?>
 <div class="container">
     <div class="row">
-        <div class="sidebar col-3">
-            <ul>
-                <li>
-                    <a href="">Записи</a>
-                </li>
-                <li>
-                    <a href="">Пользователи</a>
-                </li>
-                <li>
-                    <a href="">Категории</a>
-                </li>
-            </ul>
-        </div>
+        <?php require_once("../../app/include/sidebar_admin.php"); ?>
+
         <div class="posts col-9">
-            <div class="button row">
-                <a class="btn btn-success col-3" href="create.php">Создать</a>
-                <span class="col-1"></span>
-                <a class="btn btn-warning col-3" href="index.php">Управление</a>
-            </div>
+            <?php require_once("../../app/include/buttons_admin.php") ?>
+
             <div class="row title-table">
-                <h2>Добавить статью</h2>
+                <h2>Добавить запись</h2>
             </div>
             <div class="row add-post">
                 <form action="create.php" method="POST">
-                    <div class="col">
+                    <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>
                         <input type="text" class="form-control" id="title" placeholder="Заголовок"
                                aria-label="Название статьи">
                     </div>
-                    <div class="col">
-                        <label for="content" class="form-label">Текст статьи</label>
-                        <textarea class="form-control" id="content" rows="6"></textarea>
+                    <div class="col mb-4">
+                        <label for="editor" class="form-label">Текст статьи</label>
+                        <textarea class="form-control" id="editor" rows="6"></textarea>
                     </div>
-                    <div class="input-group col">
+                    <div class="input-group col mb-4">
                         <input type="file" class="form-control" id="picture">
                         <label class="input-group-text" for="picture">Загрузить</label>
                     </div>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                    <select class="form-select mb-4" aria-label="Default select example">
+                        <option selected>Категория</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -76,5 +62,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+<script src="../../assets/js/scripts.js"></script>
 </body>
 </html>

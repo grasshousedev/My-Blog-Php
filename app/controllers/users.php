@@ -63,7 +63,7 @@ function createUserSession($user)
     $_SESSION['admin'] = $user['admin'];
 
     if ($_SESSION['admin']) {
-        header('location: ' . BASE_URL . 'admin/admin.php');
+        header('location: ' . BASE_URL . 'admin/posts/index.php');
     } else {
         header('location: ' . BASE_URL);
     }
