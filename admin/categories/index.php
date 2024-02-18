@@ -1,5 +1,5 @@
 <?php include("../../path.php") ?>
-<?php include("../../app/database/db.php") ?>
+<?php include("../../app/controllers/categories.php") ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,8 +18,7 @@
 </head>
 <body>
 
-<?php include("../../app/include/header_admin.php");
-include("../../app/controllers/categories.php"); ?>
+<?php include("../../app/include/header_admin.php"); ?>
 
 <div class="container">
     <div class="row">
@@ -33,12 +32,14 @@ include("../../app/controllers/categories.php"); ?>
                 <div class="col-5">Название</div>
                 <div class="col-4">Управление</div>
             </div>
+            <?php foreach($categories as $key=>$value): ?>
             <div class="row post">
-                <div class="id col-1">1</div>
-                <div class="title col-5">Разработка</div>
+                <div class="id col-1"><?=$key+1?></div>
+                <div class="title col-5"><?=$value['name']?></div>
                 <div class="edit col-2"><a href="">Edit</a></div>
                 <div class="delete col-2"><a href="">Delete</a></div>
             </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

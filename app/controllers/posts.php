@@ -2,7 +2,8 @@
 require_once('../../app/database/db.php');
 $statusMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category-create'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post-create'])) {
+    tt($_POST);
     $name = trim($_POST['name']);
     $description = trim($_POST['description']);
 

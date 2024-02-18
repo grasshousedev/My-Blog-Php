@@ -1,5 +1,7 @@
-<?php include("../../path.php") ?>
-<?php include("../../app/database/db.php") ?>
+<?php
+include("../../path.php");
+include("../../app/controllers/users.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,33 +27,37 @@
 
         <div class="posts col-9">
             <?php require_once("../../app/include/buttons_admin.php") ?>
+            <form action="create.php" method="POST">
 
-            <div class="row title-table">
-                <h2>Добавить пользователя</h2>
-            </div>
-            <div class="col mb-3">
-                <label for="login" class="form-label">Имя пользователя</label>
-                <input name="login" value="<?=$login?>" type="text" class="form-control" id="login" placeholder="Введите ваш логин">
-            </div>
-            <div class="col mb-3">
-                <label for="email" class="form-label">Адрес электронной почты</label>
-                <input name="email" value="<?=$email?>" type="email" class="form-control" id="email">
-            </div>
-            <div class="col mb-3">
-                <label for="password" class="form-label">Пароль</label>
-                <input name="password" type="password" class="form-control" id="password">
-            </div>
-            <div class="col mb-3">
-                <label for="password-verify" class="form-label">Повторите пароль</label>
-                <input name="password_check" type="password" class="form-control" id="password-verify">
-            </div>
-            <select class="form-select mb-3" aria-label="Default select example">
-                <option selected>Пользователь</option>
-                <option value="1">Администратор</option>
-            </select>
-            <div class="col">
-                <button class="btn btn-primary" type="submit">Создать пользователя</button>
-            </div>
+                <div class="row title-table">
+                    <h2>Добавить пользователя</h2>
+                </div>
+                <div class="col mb-3">
+                    <label for="login" class="form-label">Имя пользователя</label>
+                    <input name="login" value="<?= $login ?>" type="text" class="form-control" id="login"
+                           placeholder="Введите ваш логин">
+                </div>
+                <div class="col mb-3">
+                    <label for="email" class="form-label">Адрес электронной почты</label>
+                    <input name="email" value="<?= $email ?>" type="email" class="form-control" id="email">
+                </div>
+                <div class="col mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input name="password" type="password" class="form-control" id="password">
+                </div>
+                <div class="col mb-3">
+                    <label for="password-verify" class="form-label">Повторите пароль</label>
+                    <input name="password_check" type="password" class="form-control" id="password-verify">
+                </div>
+                <select class="form-select mb-3" aria-label="Default select example">
+                    <option selected>Пользователь</option>
+                    <option value="1">Администратор</option>
+                </select>
+                <div class="col">
+                    <button name="create-user" class="btn btn-primary" type="submit">Создать пользователя</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
