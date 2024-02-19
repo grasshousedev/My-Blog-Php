@@ -36,8 +36,8 @@
             <div class="row post">
                 <div class="id col-1"><?=$key+1?></div>
                 <div class="title col-5"><?=$value['name']?></div>
-                <div class="edit col-2"><a href="">Edit</a></div>
-                <div class="delete col-2"><a href="">Delete</a></div>
+                <div class="edit col-2"><a href="edit.php?id=<?=$value['id'];?>">Edit</a></div>
+                <div class="delete col-2"><a href="edit.php?delete_id=<?=$value['id'];?>">Delete</a></div>
             </div>
             <?php endforeach; ?>
         </div>

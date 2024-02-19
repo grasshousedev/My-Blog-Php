@@ -85,6 +85,7 @@ function update($table, $id, $params)
     // Удаляет лишнюю запятую в конце
     $sql = substr_replace($sql, "", -1);
     $sql = $sql . " WHERE `id` = $id";
+    print($sql);
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
@@ -94,6 +95,7 @@ function update($table, $id, $params)
 function delete($table, $param)
 {
     global $pdo;
+    tt($param);
     foreach ($param as $key => $value)
         $sql = "DELETE FROM `$table` WHERE `$key` = '$value'";
     $query = $pdo->prepare($sql);
