@@ -1,5 +1,8 @@
-<?php include("path.php") ?>
-<?php include("app/database/db.php") ?>
+<?php
+require_once("path.php");
+require_once(ROOT . '/app/controllers/categories.php');
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -158,13 +161,9 @@
             <div class="section topics">
                 <h3>Категории</h3>
                 <ul>
-                    <li><a href="#">Poems</a></li>
-                    <li><a href="#">Quotes</a></li>
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Motivation</a></li>
-                    <li><a href="#">Inspiration</a></li>
-                    <li><a href="#">Life Lessons</a></li>
+                    <?php foreach($categories as $key => $value): ?>
+                    <li><a href="#"><?=$value['name']?></a></li>
+                    <?endforeach;?>
                 </ul>
             </div>
         </div>

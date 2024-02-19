@@ -1,5 +1,5 @@
-<?php include("../../path.php") ?>
-<?php include("../../app/database/db.php") ?>
+<?php include("../../path.php");
+include(ROOT . "/app/database/db.php"); ?>
 <!doctype html>
 <html lang="en">
 <head>

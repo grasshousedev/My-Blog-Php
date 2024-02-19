@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/app/database/db.php');
+require_once ( ROOT . '/app/database/db.php');
 $statusMessage = '';
 
 // Код для перехода со страницы регистрации

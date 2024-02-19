@@ -1,8 +1,9 @@
-<?php include("../../path.php");
-include("../../app/controllers/posts.php");
+<?php
+require_once('../../path.php');
+require_once(ROOT . "/app/controllers/posts.php");
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,25 +35,25 @@ include("../../app/controllers/posts.php");
                 <form action="create.php" method="POST">
                     <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>
-                        <input type="text" class="form-control" id="title" placeholder="Заголовок"
+                        <input name="title" type="text" class="form-control" id="title" placeholder="Заголовок"
                                aria-label="Название статьи">
                     </div>
                     <div class="col mb-4">
                         <label for="editor" class="form-label">Текст статьи</label>
-                        <textarea class="form-control" id="editor" rows="6"></textarea>
+                        <textarea name="content" class="form-control" id="editor" rows="6"></textarea>
                     </div>
                     <div class="input-group col mb-4">
-                        <input type="file" class="form-control" id="picture">
+                        <input name="img" type="file" class="form-control" id="picture">
                         <label class="input-group-text" for="picture">Загрузить</label>
                     </div>
-                    <select class="form-select mb-4" aria-label="Default select example">
-                        <option selected>Категория</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select name="category" class="form-select mb-4" aria-label="Default select example">
+                        <option selected disabled>Категория поста: </option>
+                        <?php foreach($categories as $key=>$value): ?>
+                        <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                        <?php endforeach; ?>
                     </select>
                     <div class="col">
-                        <button name="post-create" class="btn btn-primary" type="submit">Сохранить запись</button>
+                        <button name="add_post" class="btn btn-primary" type="submit">Добавить запись</button>
                     </div>
                 </form>
             </div>

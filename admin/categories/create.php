@@ -1,5 +1,6 @@
-<?php include("../../path.php") ?>
-<?php include("../../app/controllers/categories.php") ?>
+<?php include("../../path.php");
+include("../../app/controllers/categories.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>

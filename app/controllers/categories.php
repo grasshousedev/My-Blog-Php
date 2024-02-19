@@ -1,5 +1,6 @@
 <?php
-require_once('../../app/database/db.php');
+require_once(ROOT . '/app/database/db.php');
+
 $statusMessage = '';
 
 // Создание категории

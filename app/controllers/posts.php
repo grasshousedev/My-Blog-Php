@@ -1,23 +1,29 @@
 <?php
-require_once('../../app/database/db.php');
+require_once(ROOT . '/app/database/db.php');
 $statusMessage = '';
+$id = '';
+$title = '';
+$content = '';
+$category = '';
+$categories = selectAny('categories', [], 0);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post-create'])) {
+// Код для формы создания записи
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
     tt($_POST);
-    $name = trim($_POST['name']);
-    $description = trim($_POST['description']);
-
-    if ($name === '' || $description === '') {
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+    tt($_SESSION);
+    if ($title === '' || $content === '' || $category = '') {
         $statusMessage = "Не все поля заполнены!";
-    } elseif (mb_strlen($name, 'UTF-8') <= 2) {
-        $statusMessage = "Категория должна быть более 2 символов";
-    } elseif (!empty(selectAny('categories', ["name" => $name]))) {
-        $statusMessage = "Такая категория уже существует";
+    } elseif (mb_strlen($title, 'UTF-8') <= 7) {
+        $statusMessage = "Заголовок должен быть более 7 символов";
     } else {
-        $category = [
-            'name' => $name,
-            'description' => $description,
+        $post = [
+            'id_user' => $_SESSION['id'],
+            'title' => $title,
+            'content' => $content,
         ];
+        exit();
         $id = insert('categories', $category);
         $statusMessage = "<i style='color: green; font-weight: bold;'>Категория успешно добавлена</i>";
         header('location: ' . BASE_URL . 'admin/categories/index.php');
