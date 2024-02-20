@@ -33,26 +33,33 @@ require_once(ROOT . "/app/controllers/posts.php");
             </div>
             <div class="row add-post">
                 <form action="create.php" method="POST">
+                    <div class="mb-3 col err">
+                        <p><?=$statusMessage?></p>
+                    </div>
                     <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>
-                        <input name="title" type="text" class="form-control" id="title" placeholder="Заголовок"
+                        <input value="<?=$title?>" name="title" type="text" class="form-control" id="title" placeholder="Заголовок"
                                aria-label="Название статьи">
                     </div>
                     <div class="col mb-4">
                         <label for="editor" class="form-label">Текст статьи</label>
-                        <textarea name="content" class="form-control" id="editor" rows="6"></textarea>
+                        <textarea name="content" class="form-control" id="editor" rows="6"><?=$content?></textarea>
                     </div>
                     <div class="input-group col mb-4">
                         <input name="img" type="file" class="form-control" id="picture">
                         <label class="input-group-text" for="picture">Загрузить</label>
                     </div>
-                    <select name="category" class="form-select mb-4" aria-label="Default select example">
-                        <option selected disabled>Категория поста: </option>
+                    <p>Выберите категорию:</p>
+                    <select name="category" class="form-select mb-2" aria-label="Default select example">
                         <?php foreach($categories as $key=>$value): ?>
-                        <option value="<?=$value['id']?>"><?=$value['name']?></option>
+                        <option value="<?=$value['id'];?>"><?=$value['name'];?></option>
                         <?php endforeach; ?>
                     </select>
-                    <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" id="status" name="status" type="checkbox" checked>
+                        <label class="form-check-label" for="status">Опубликовать?</label>
+                    </div>
+                    <div class="col col-6">
                         <button name="add_post" class="btn btn-primary" type="submit">Добавить запись</button>
                     </div>
                 </form>

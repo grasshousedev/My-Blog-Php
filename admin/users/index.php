@@ -1,5 +1,6 @@
-<?php include("../../path.php") ?>
-<?php include("../../app/database/db.php") ?>
+<?php
+require_once("../../path.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,17 +29,11 @@
             <div class="row title-table">
                 <h2>Управление пользователями</h2>
                 <div class="col-1">ID</div>
-                <div class="col-5">Логин</div>
+                <div class="col-4">Логин</div>
                 <div class="col-2">Роль</div>
-                <div class="col-4">Управление</div>
+                <div class="col-5">Управление</div>
             </div>
-            <div class="row post">
-                <div class="id col-1">1</div>
-                <div class="title col-5">Rustik228</div>
-                <div class="author col-2">Admin</div>
-                <div class="edit col-2"><a href="">Edit</a></div>
-                <div class="delete col-2"><a href="">Delete</a></div>
-            </div>
+
         </div>
     </div>
 </div>

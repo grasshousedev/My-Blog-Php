@@ -1,5 +1,7 @@
-<?php include("../../path.php");
-include(ROOT . "/app/database/db.php"); ?>
+<?php
+require_once("../../path.php");
+require_once(ROOT . "/app/controllers/posts.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,17 +30,24 @@ include(ROOT . "/app/database/db.php"); ?>
             <div class="row title-table">
                 <h2>Управление записями</h2>
                 <div class="col-1">ID</div>
-                <div class="col-5">Название</div>
-                <div class="col-2">Автор</div>
+                <div class="col-4">Название</div>
+                <div class="col-3">Автор</div>
                 <div class="col-4">Управление</div>
             </div>
-            <div class="row post">
-                <div class="id col-1">1</div>
-                <div class="title col-5">Какая-то статья</div>
-                <div class="author col-2">Admin</div>
-                <div class="edit col-2"><a href="">Edit</a></div>
-                <div class="delete col-2"><a href="">Delete</a></div>
-            </div>
+            <?php foreach($posts as $key=>$post): ?>
+                <div class="row post">
+                    <div class="id col-1"><?=$key+1?></div>
+                    <div class="title col-4"><?=$post['title']?></div>
+                    <div class="author col-3"><?=$post['id_user']?></div>
+                    <div class="edit col-1"><a href="">edit</a></div>
+                    <div class="delete col-1"><a href="">delete</a></div>
+                    <?php if($post['status']):?>
+                    <div class="status col-2"><a href="">unpublish</a></div>
+                    <?php else:?>
+                    <div class="status col-2"><a href="">publish</a></div>
+                    <?php endif;?>
+                </div>
+            <?php endforeach;?>
         </div>
     </div>
 </div>
