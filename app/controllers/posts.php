@@ -1,11 +1,34 @@
 <?php
 require_once(ROOT . '/app/database/db.php');
+if (!$_SESSION) {
+    header('location: ' . BASE_URL . 'auth.php');
+}
+
 $statusMessage = '';
 $categories = selectAny('categories', [], 0);
 $posts = selectAllFromPostsWithUsers('posts', 'users');
 
 // Код для формы создания записи
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
+    if (!empty($_FILES['img']['name'])) {
+        $imgName = time() . '_' . $_FILES['img']['name'];
+        $fileTmpName = $_FILES['img']['tmp_name'];
+        $fileType = $_FILES['img']['type'];
+        $destination = ROOT . "\assets\images\posts\\" . $imgName;
+        if(strpos($fileType, 'image') === false){
+            die("Файл не является изображением");
+        }
+
+        $result = move_uploaded_file($fileTmpName, $destination);
+        if ($result) {
+            $_POST['img'] = $imgName;
+        } else {
+            $statusMessage = "Ошибка загрузки изображдения на сервер";
+        }
+
+    } else {
+        $statusMessage = "Ошибка получения изображения";
+    }
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
     $img = trim($_POST['img']);

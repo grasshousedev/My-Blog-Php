@@ -32,7 +32,7 @@ require_once(ROOT . "/app/controllers/posts.php");
                 <h2>Добавить запись</h2>
             </div>
             <div class="row add-post">
-                <form action="create.php" method="POST">
+                <form action="create.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3 col err">
                         <p><?=$statusMessage?></p>
                     </div>

@@ -1,5 +1,8 @@
 <?php
 require_once ( ROOT . '/app/database/db.php');
+if(!$_SESSION) {
+    header('location: ' . BASE_URL . 'auth.php');
+}
 $statusMessage = '';
 
 // Код для перехода со страницы регистрации
