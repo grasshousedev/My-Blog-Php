@@ -67,3 +67,17 @@ SIDEBAR
 /*.add-post form div {*/
 /*    margin: 2rem 0;*/
 /*}*/
+
+/*
+err message
+ */
+.add-post .err {
+    padding: 1rem 0;
+    color: #A52A2A;
+}
+
+.add-post .err ul {
+    list-style: none;
+    padding-left: 10px;
+    font-weight: 500;
+}

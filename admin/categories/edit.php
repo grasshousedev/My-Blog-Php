@@ -33,7 +33,7 @@ include("../../app/controllers/categories.php") ?>
                         <h2>Обновить категорию</h2>
                     </div>
                     <div class="mb-3 col err">
-                        <p><?=$statusMessage?></p>
+                        <?php require_once(ROOT . "/app/errors/error_info.php"); ?>
                     </div>
                     <div class="col mb-3">
                         <input value="<?=$id?>" name="id" type="hidden">

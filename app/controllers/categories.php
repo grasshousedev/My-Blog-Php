@@ -4,23 +4,22 @@ if(!$_SESSION) {
     header('location: ' . BASE_URL . 'auth.php');
 }
 
-$statusMessage = '';
+$statusMessage = [];
 
 // Создание категории
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category-create'])) {
     $name = $_POST['name'];
     $description = $_POST['description'];
     $statusMessage = checkInput($name, $description);
-    if ($statusMessage == '') {
+    if (!count($statusMessage)) {
         if (!empty(selectAny('categories', ['name'=>$name]))) {
-            $statusMessage = "Такая категория уже существует";
+            $statusMessage[] = "Такая категория уже существует";
         } else {
             $category = [
                 'name' => $name,
                 'description' => $description,
             ];
             $id = insert('categories', $category);
-            $statusMessage = "<i style='color: green; font-weight: bold;'>Категория успешно добавлена</i>";
             header('location: ' . BASE_URL . 'admin/categories/index.php');
         }
     }
@@ -49,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category-edit'])) {
     $description = trim($_POST['description']);
     $statusMessage = checkInput($name, $description);
     $id = $_POST['id'];
-    if ($statusMessage == '') {
+    if (!count($statusMessage)) {
         $category = [
             'name' => $name,
             'description' => $description,
@@ -69,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
 // Получение и проверка полученных из формы данных
 function checkInput($name, $description)
 {
-    $statusMessage = '';
+    $statusMessage = [];
     if ($name === '' || $description === '') {
-        $statusMessage = "Не все поля заполнены!";
+        $statusMessage[] = "Не все поля заполнены!";
     } elseif (mb_strlen($name, 'UTF-8') <= 2) {
-        $statusMessage = "Категория должна быть более 2 символов";
+        $statusMessage[] = "Категория должна быть более 2 символов";
     }
     return $statusMessage;
 }

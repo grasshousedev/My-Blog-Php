@@ -34,7 +34,7 @@ require_once(ROOT . "/app/controllers/posts.php");
             <div class="row add-post">
                 <form action="create.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3 col err">
-                        <p><?=$statusMessage?></p>
+                        <?php include(ROOT . "/app/errors/error_info.php") ?>
                     </div>
                     <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>

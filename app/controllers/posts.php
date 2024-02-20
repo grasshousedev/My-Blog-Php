@@ -4,7 +4,7 @@ if (!$_SESSION) {
     header('location: ' . BASE_URL . 'auth.php');
 }
 
-$statusMessage = '';
+$statusMessage = [];
 $categories = selectAny('categories', [], 0);
 $posts = selectAllFromPostsWithUsers('posts', 'users');
 
@@ -16,30 +16,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
         $fileType = $_FILES['img']['type'];
         $destination = ROOT . "\assets\images\posts\\" . $imgName;
         if(strpos($fileType, 'image') === false){
-            die("Файл не является изображением");
-        }
-
-        $result = move_uploaded_file($fileTmpName, $destination);
-        if ($result) {
-            $_POST['img'] = $imgName;
+            $statusMessage[] = "Файл не является изображением";
         } else {
-            $statusMessage = "Ошибка загрузки изображдения на сервер";
+            $result = move_uploaded_file($fileTmpName, $destination);
+            if ($result) {
+                $_POST['img'] = $imgName;
+                $img = trim($_POST['img']);
+            } else {
+                $statusMessage[] = "Ошибка загрузки изображдения на сервер";
+            }
         }
-
     } else {
-        $statusMessage = "Ошибка получения изображения";
+        $statusMessage[] = "Ошибка получения изображения";
     }
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-    $img = trim($_POST['img']);
     $category = trim($_POST['category']);
     $status = isset($_POST['status']) ? 1 : 0;
 
     if ($title === '' || $content === '' || $category === '') {
-        $statusMessage = "Не все поля заполнены!";
+        $statusMessage[] = "Не все поля заполнены!";
     } elseif (mb_strlen($title, 'UTF-8') <= 7) {
-        $statusMessage = "Заголовок должен быть более 7 символов";
-    } else {
+        $statusMessage[] = "Заголовок должен быть более 7 символов";
+    } elseif(!count($statusMessage)) {
         $post = [
             'id_user' => $_SESSION['id'],
             'title' => $title,

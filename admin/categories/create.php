@@ -33,7 +33,7 @@ include("../../app/controllers/categories.php");
                         <h2>Добавить категорию</h2>
                     </div>
                     <div class="mb-3 col err">
-                        <p><?=$statusMessage?></p>
+                        <?php require_once(ROOT . "/app/errors/error_info.php"); ?>
                     </div>
                     <div class="col mb-3">
                         <label for="title" class="form-label">Имя категории</label>
