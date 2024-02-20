@@ -38,7 +38,7 @@ require_once(ROOT . "/app/controllers/posts.php");
                 <div class="row post">
                     <div class="id col-1"><?=$key+1?></div>
                     <div class="title col-4"><?=$post['title']?></div>
-                    <div class="author col-3"><?=$post['id_user']?></div>
+                    <div class="author col-3"><?=$post['username']?></div>
                     <div class="edit col-1"><a href="">edit</a></div>
                     <div class="delete col-1"><a href="">delete</a></div>
                     <?php if($post['status']):?>

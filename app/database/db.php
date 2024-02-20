@@ -102,3 +102,25 @@ function delete($table, $param)
     $query->execute();
     dbCheckError($query);
 }
+
+// Выборка записей с автором в админку
+
+function selectAllFromPostsWithUsers($table_posts, $table_users) {
+    global $pdo;
+    $sql = "
+    SELECT 
+    t1.id,
+    t1.title,
+    t1.img,
+    t1.content,
+    t1.status,
+    t1.id_category,
+    t1.created_date,
+    t2.username
+    FROM `$table_posts` AS t1 JOIN $table_users AS t2 ON t1.id_user = t2.id";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+
+}

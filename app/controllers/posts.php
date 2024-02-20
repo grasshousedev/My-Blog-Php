@@ -2,7 +2,7 @@
 require_once(ROOT . '/app/database/db.php');
 $statusMessage = '';
 $categories = selectAny('categories', [], 0);
-$posts = selectAny('posts', [], 0);
+$posts = selectAllFromPostsWithUsers('posts', 'users');
 
 // Код для формы создания записи
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
