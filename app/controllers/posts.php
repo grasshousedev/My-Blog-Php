@@ -1,7 +1,7 @@
 <?php
 require_once(ROOT . '/app/database/db.php');
 if (!$_SESSION) {
-    header('location: ' . BASE_URL . 'auth.php');
+    header('location: ' . BASE_URL . '/auth.php');
 }
 
 $statusMessage = [];
@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
     }
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-    $category = trim($_POST['category']);
+    $id_category = trim($_POST['category']);
     $status = isset($_POST['status']) ? 1 : 0;
-    $statusMessage = array_merge($statusMessage, checkInput($title, $content, $category));
+    $statusMessage = array_merge($statusMessage, checkInput($title, $content, $id_category));
 
     if (!count($statusMessage)) {
         $post = [
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
             'content' => $content,
             'img' => $img,
             'status' => $status,
-            'id_category' => $category,
+            'id_category' => $id_category,
         ];
         $id = insert('posts', $post);
         $post = selectAny('posts', ['id' => $id], 1);
@@ -39,11 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
     $title = '';
     $content = '';
     $status = '';
-    $category = '';
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && basename($_SERVER['SCRIPT_FILENAME']) === 'index.php') {
-    $categories = selectAny('categories', []);
+    $id_category = '';
 }
 
 // Обновление статьи
@@ -52,10 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
     $id = $_POST['id'];
     $title = trim($_POST['title']);
     $content = trim($_POST['content']);
-    $category = trim($_POST['category']);
+    $id_category = trim($_POST['category']);
     $status = isset($_POST['status']) ? 1 : 0;
-
-    if (!empty($_POST['img'])) {
+    if (!empty($_FILES['img']['name'])) {
         try {
             $img = checkImage();
             $post = array_merge($post, ['img' => $img]);
@@ -63,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
             $statusMessage[] = $e->getMessage();
         }
     }
-    $statusMessage = array_merge($statusMessage, checkInput($title, $content, $category));
+    $statusMessage = array_merge($statusMessage, checkInput($title, $content, $id_category));
     if (!count($statusMessage)) {
         $post = array_merge($post, [
             'id' => $id,
@@ -71,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
             'title' => $title,
             'content' => $content,
             'status' => $status,
-            'id_category' => $category,
+            'id_category' => $id_category,
         ]);
         update('posts', $id, $post);
         header('location: ' . BASE_URL . 'admin/posts/index.php');
@@ -80,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
     $title = '';
     $content = '';
     $status = isset($_POST['status']) ? 1 : 0;
-    $category = '';
+    $id_category = '';
 }
 
 // Получение данных при нажатии кнопки изменения статьи
@@ -93,6 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $status = $post['status'];
 }
 
+// Функция для переключения метки опубликовано (status)
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
+{
+    update('posts', $_GET['id'], ['status'=>$_GET['status']]);
+    header("location: " . BASE_URL . "/admin/posts/index.php");
+}
+
 // Удаление статьи
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
@@ -100,16 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
     header("location: " . BASE_URL . "/admin/posts/index.php");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
-{
-    update('posts', $_GET['id'], ['status'=>$_GET['status']]);
-    header("location: " . BASE_URL . "/admin/posts/index.php");
-}
-
-function checkInput($title, $content, $category)
+// Функция для проверки значений, которые в нее передаются
+function checkInput($title, $content, $id_category)
 {
     $statusMessage = [];
-    if ($title === '' || $content === '' || $category === '') {
+    if ($title === '' || $content === '' || $id_category === '') {
         $statusMessage[] = "Не все поля заполнены!";
     } elseif (mb_strlen($title, 'UTF-8') <= 7) {
         $statusMessage[] = "Заголовок должен быть более 7 символов";
@@ -117,8 +114,10 @@ function checkInput($title, $content, $category)
     return $statusMessage;
 }
 
+// Функция для проверки изображения
 function checkImage()
 {
+    tt($_FILES);
     if (!empty($_FILES['img']['name'])) {
         $imgName = time() . '_' . $_FILES['img']['name'];
         $fileTmpName = $_FILES['img']['tmp_name'];
