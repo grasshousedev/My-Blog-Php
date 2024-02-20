@@ -8,6 +8,7 @@ function tt($value)
     echo '<pre>';
     print_r($value);
     echo '</pre>';
+    exit();
 }
 
 
@@ -95,7 +96,6 @@ function update($table, $id, $params)
 function delete($table, $param)
 {
     global $pdo;
-    tt($param);
     foreach ($param as $key => $value)
         $sql = "DELETE FROM `$table` WHERE `$key` = '$value'";
     $query = $pdo->prepare($sql);
