@@ -31,14 +31,15 @@ require_once(ROOT . "/app/controllers/posts.php");
                 <h2>Редактирование записи</h2>
             </div>
             <div class="row add-post">
-                <form action="create.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?=$id;?>">
+                <form action="edit.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $id; ?>">
                     <div class="mb-3 col err">
                         <?php include(ROOT . "/app/errors/error_info.php") ?>
                     </div>
                     <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>
-                        <input value="<?=$title?>" name="title" type="text" class="form-control" id="title" placeholder="Заголовок"
+                        <input value="<?= $title ?>" name="title" type="text" class="form-control" id="title"
+                               placeholder="Заголовок"
                                aria-label="Название статьи">
                     </div>
                     <div class="col mb-4">
@@ -51,13 +52,17 @@ require_once(ROOT . "/app/controllers/posts.php");
                     </div>
                     <p>Выберите категорию:</p>
                     <select name="category" class="form-select mb-2" aria-label="Default select example">
-                        <?php foreach($categories as $key=>$value): ?>
-                            <option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+                        <?php foreach ($categories as $key => $value): ?>
+                            <?php if ($value['id'] == $id_category):?>
+                                <option value="<?= $value['id']; ?>" selected><?= $value['name'];?></option>
+                            <?php else: ?>
+                                <option value="<?= $value['id']; ?>"><?= $value['name']; ?></option>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
                     <div class="form-check">
-                        <?php if($status): ?>
-                        <input class="form-check-input" id="status" name="status" type="checkbox" checked>
+                        <?php if ($status): ?>
+                            <input class="form-check-input" id="status" name="status" type="checkbox" checked>
                         <?php else: ?>
                             <input class="form-check-input" id="status" name="status" type="checkbox">
                         <?php endif; ?>
