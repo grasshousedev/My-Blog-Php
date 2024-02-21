@@ -1,5 +1,6 @@
 <?php
 require_once("../../path.php");
+require_once(ROOT . '/app/controllers/users.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,9 +31,22 @@ require_once("../../path.php");
                 <h2>Управление пользователями</h2>
                 <div class="col-1">ID</div>
                 <div class="col-4">Логин</div>
-                <div class="col-2">Роль</div>
-                <div class="col-5">Управление</div>
+                <div class="col-3">Роль</div>
+                <div class="col-4">Управление</div>
             </div>
+            <?php foreach($users as $key=>$user): ?>
+            <div class="row post">
+                <div class="col-1"><?=$key+1?></div>
+                <div class="col-4"><?=$user['username']?></div>
+                <?php if($user['admin']): ?>
+                <div class="col-3">Администратор</div>
+                <?php else: ?>
+                <div class="col-3">Пользователь</div>
+                <?php endif; ?>
+                <div class="col-2 edit"><a href="">edit</a></div>
+                <div class="col-2 delete"><a href="">delete</a></div>
+            </div>
+            <?php endforeach;?>
 
         </div>
     </div>
