@@ -16,7 +16,7 @@ include(ROOT . "/app/include/head.php");
             <form action="edit.php" method="POST">
 
                 <div class="row title-table">
-                    <h2>Добавить пользователя</h2>
+                    <h2>Изменить пользователя</h2>
                 </div>
                 <div class="mb-3 col err">
                     <?php require_once(ROOT . "/app/errors/error_info.php"); ?>
@@ -35,11 +35,11 @@ include(ROOT . "/app/include/head.php");
                     <input name="email" value="<?= $email ?>" type="email" class="form-control" id="email">
                 </div>
                 <div class="col mb-3">
-                    <label for="password" class="form-label">Пароль</label>
+                    <label for="password" class="form-label">Изменить пароль</label>
                     <input name="password" type="password" class="form-control" id="password">
                 </div>
                 <div class="col mb-3">
-                    <label for="password-verify" class="form-label">Повторите пароль</label>
+                    <label for="password-verify" class="form-label">Повторите новый пароль</label>
                     <input name="password_check" type="password" class="form-control" id="password-verify">
                 </div>
                 <label for="select-role">Роль пользователя</label>
@@ -53,7 +53,7 @@ include(ROOT . "/app/include/head.php");
                     <?php endif; ?>
                 </select>
                 <div class="col">
-                    <button name="edit-user" class="btn btn-primary" type="submit">Создать пользователя</button>
+                    <button name="edit-user" class="btn btn-primary" type="submit">Сохранить изменения</button>
                 </div>
             </form>
 
