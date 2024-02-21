@@ -27,7 +27,7 @@ require_once(ROOT . "/app/include/head.php");
                     </div>
                     <div class="col mb-3">
                         <label for="content" class="form-label">Описание категории</label>
-                        <textarea name="description" class="form-control" id="content" rows="6"><?=$description?> </textarea>
+                        <textarea name="description" class="form-control" id="content" rows="6"><?=$description?></textarea>
                     </div>
                     <div class="col">
                         <button name="category-create" class="btn btn-primary" type="submit">Сохранить категорию</button>

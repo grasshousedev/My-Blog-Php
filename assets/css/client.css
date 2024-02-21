@@ -55,9 +55,13 @@
 .main-content h2 {
     margin: 30px 0;
 }
+.main-content .post .img {
+    height: auto;
+}
 
 .main-content .post {
     margin-bottom: 30px;
+    height: auto;
 }
 
 .main-content .post_text {
