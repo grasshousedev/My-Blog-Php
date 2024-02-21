@@ -43,8 +43,8 @@ require_once(ROOT . '/app/controllers/users.php');
                 <?php else: ?>
                 <div class="col-3">Пользователь</div>
                 <?php endif; ?>
-                <div class="col-2 edit"><a href="">edit</a></div>
-                <div class="col-2 delete"><a href="">delete</a></div>
+                <div class="col-2 edit"><a href="edit.php?id=<?=$user['id']?>">edit</a></div>
+                <div class="col-2 delete"><a href="edit.php?delete_id=<?=$user['id']?>">delete</a></div>
             </div>
             <?php endforeach;?>
 

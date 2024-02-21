@@ -1,7 +1,10 @@
 <?php
 require_once(ROOT . '/app/database/db.php');
-if (!$_SESSION) {
-    header('location: ' . BASE_URL . 'auth.php');
+
+if (str_contains($_SERVER['SCRIPT_FILENAME'], 'admin')) {
+    if ($_SESSION['admin'] == 0) {
+        header('location: ' . BASE_URL . 'auth.php');
+    }
 }
 $statusMessage = [];
 $users = selectAny('users', []);
@@ -20,14 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
             'email' => $email,
             'password' => $password
         ];
-        tt($post);
-        exit();
         $id = insert('users', $post);
-        $user = selectAny('users', ['id' => $id]);
+        $user = selectAny('users', ['id' => $id], 1);
         createUserSession($user);
     }
-}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-user'])) {
+} // Создание пользователя в админ-панели
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-user'])) {
     $login = $_POST['login'];
     $email = $_POST['email'];
     $admin = $_POST['admin'];
@@ -44,24 +45,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-user'])) {
         $user = selectAny('users', ['id' => $id], 1);
         header('location: ' . BASE_URL . '/admin/users/index.php');
     }
-} else {
-    $login = '';
-    $email = '';
-    $admin = 0;
-}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
+} // Авторизация пользователя
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
     $login = trim($_POST['login']);
     $password = trim($_POST['password']);
     if ($login === '' || $password === '') {
-        $statusMessage = "Не все поля заполнены!";
+        $statusMessage[] = "Не все поля заполнены!";
     } else {
         $user = selectAny('users', ["username" => $login], 1);
         if ($user && password_verify($password, $user['password'])) {
             createUserSession($user);
         } else {
-            $statusMessage = "Имя пользователя или пароль введены неверно";
+            $statusMessage[] = "Имя пользователя или пароль введены неверно";
         }
     }
+} elseif ($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
+    delete('users', ['id' => $delete_id]);
+    header("location: " . BASE_URL . "/admin/users/index.php");
+} else {
+    $login = '';
+    $email = '';
+    $admin = '';
 }
 
 function checkInput()
