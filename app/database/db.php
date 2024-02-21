@@ -121,7 +121,7 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
         $i = 0;
         foreach($params as $key => $value) {
             if($i === 0) {
-                $sql .= " WHERE `$key` = '$value'";
+                $sql .= " AND `$key` = '$value'";
             } else {
                 $sql .= " AND `$key` = '$value'";
             }

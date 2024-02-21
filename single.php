@@ -1,4 +1,8 @@
-<?php include("path.php");
+<?php
+include("path.php");
+include(ROOT . '/app/database/db.php');
+$post = selectAny('posts', ['id' => $_GET['post']], 1);
+$author = selectAny('users', ['id' => $post['id_user']], 1);
 require_once(ROOT . "/app/include/head.php");
 ?>
 <body>
@@ -8,46 +12,25 @@ require_once(ROOT . "/app/include/head.php");
 <div class="container">
     <div class="content row">
         <div class="main-content col-md-9 col-12">
-            <h2>Заголовок</h2>
+            <h2><?=$post['title']?></h2>
             <div class="single_post row">
                 <div class="img col-12">
-                    <img src="assets/images/2.jpg" alt="" class="img-thumbnail">
+                    <img src="<?=BASE_URL . 'assets/images/posts/' . $post['img']?>" alt="" class="img-thumbnail">
                 </div>
                 <div class="info">
-                    <i class="far fa-user"> Имя автора</i>
-                    <i class="far fa-calendar"> Mar 11, 2020</i>
+                    <i class="far fa-user"><?=$author['username']?> </i>
+                    <i class="far fa-calendar"><?=$post['created_date']?></i>
                 </div>
                 <div class="single_post_text col-12">
-                    <h3>Заголовок третьего уровня</h3>
-                    <p>Lorem <a href="#">ipsum</a> dolor sit amet, consectetur adipisicing elit. Alias aperiam at consectetur esse modi nam obcaecati porro quam, qui sequi totam vero! Alias at consequuntur doloribus ducimus eligendi enim eum fugit incidunt nostrum obcaecati, pariatur perspiciatis quasi quis repudiandae saepe sequi similique voluptates voluptatum? Ab accusantium adipisci corporis ducimus eaque esse eum eveniet excepturi iste, iure laboriosam laudantium minima necessitatibus nesciunt nobis non quae reprehenderit sed soluta voluptate! Alias architecto corporis culpa deleniti dicta distinctio doloremque dolorum eaque est explicabo facere inventore ipsa nam natus nisi non nulla obcaecati officia omnis porro quae quaerat ratione rerum sit totam unde, voluptatum?</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aut beatae doloremque dolorum eius excepturi in labore magni nesciunt officia, perspiciatis quibusdam quis quo sapiente unde velit voluptatem. Accusantium, aperiam cum dolorum eos esse illo laborum maxime odit optio voluptate! Consequatur explicabo facilis harum maiores maxime modi quibusdam, vel vitae.</p>
+                    <?=$post['content']?>
                 </div>
             </div>
         </div>
 
-        <!--        Sidebar Content-->
-        <div class="sidebar col-md-3 col-12">
-            <div class="section search">
-                <h3>Поиск</h3>
-                <form action="/" method="post">
-                    <input type="text" name="search-term" class="text-input" placeholder="Введите запрос">
-                </form>
-            </div>
+        <?php include(ROOT . '/app/include/sidebar.php'); ?>
 
-            <div class="section topics">
-                <h3>Категории</h3>
-                <ul>
-                    <li><a href="#">Poems</a></li>
-                    <li><a href="#">Quotes</a></li>
-                    <li><a href="#">Fiction</a></li>
-                    <li><a href="#">Biography</a></li>
-                    <li><a href="#">Motivation</a></li>
-                    <li><a href="#">Inspiration</a></li>
-                    <li><a href="#">Life Lessons</a></li>
-                </ul>
-            </div>
-        </div>
     </div>
+
 </div>
 
 <!--Main end-->

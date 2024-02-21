@@ -1,6 +1,6 @@
 <?php
 require_once("path.php");
-require_once(ROOT . '/app/controllers/categories.php');
+require_once(ROOT . '/app/database/db.php');
 $posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1]);
 require_once("app/include/head.php");
 ?>
@@ -62,7 +62,7 @@ require_once("app/include/head.php");
                 </div>
                 <div class="post_text col-12 col-md-8">
                     <h3>
-                        <a href=""><?php
+                        <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>"><?php
                             if(strlen($post['title']) > 50) {
                                 echo mb_substr($post['title'], 0, 50, 'utf8') . '...';
                             } else {
@@ -88,23 +88,7 @@ require_once("app/include/head.php");
         </div>
 
         <!--        Sidebar Content-->
-        <div class="sidebar col-md-3 col-12">
-            <div class="section search">
-                <h3>Поиск</h3>
-                <form action="/" method="post">
-                    <input type="text" name="search-term" class="text-input" placeholder="Введите запрос">
-                </form>
-            </div>
-
-            <div class="section topics">
-                <h3>Категории</h3>
-                <ul>
-                    <?php foreach($categories as $key => $value): ?>
-                    <li><a href="#"><?=$value['name']?></a></li>
-                    <?endforeach;?>
-                </ul>
-            </div>
-        </div>
+        <?php include(ROOT . '/app/include/sidebar.php') ?>
     </div>
 </div>
 <!--Main end-->
