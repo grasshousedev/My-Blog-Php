@@ -1,24 +1,12 @@
 <?php
 require_once("path.php");
 require_once(ROOT . '/app/controllers/categories.php');
+$posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1]);
+require_once("app/include/head.php");
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Blog</title>
-    <script src="https://kit.fontawesome.com/40087f1b88.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/client.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:wght@400;800&family=Roboto&display=swap"
-          rel="stylesheet">
 
-</head>
+
 <body>
 
 <?php include("app/include/header.php"); ?>
@@ -67,86 +55,23 @@ require_once(ROOT . '/app/controllers/categories.php');
     <div class="content row">
         <div class="main-content col-md-9 col-12">
             <h2>Последние публикации</h2>
+            <?php foreach($posts as $key=>$post) : ?>
             <div class="post row">
                 <div class="img col-12 col-md-4">
-                    <img src="assets/images/1.jpg" alt="" class="img-thumbnail">
+                    <img src="assets/images/posts/<?=$post['img']?>" alt="" class="img-thumbnail">
                 </div>
                 <div class="post_text col-12 col-md-8">
                     <h3>
-                        <a href="">Прикольная статья на тему FNAF</a>
+                        <a href=""><?=$post['title']?></a>
                     </h3>
-                    <i class="far fa-user"> Имя автора</i>
-                    <i class="far fa-calendar"> Mar 11, 2020</i>
+                    <i class="far fa-user"> <?=$post['username']?></i>
+                    <i class="far fa-calendar"><?=$post['created_date']?></i>
                     <p class="preview-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi cupiditate ducimus
-                        eligendi esse facere facilis reprehenderit. Accusamus, ipsum?
+                        <?=$post['content']?>
                     </p>
                 </div>
             </div>
-            <div class="post row">
-                <div class="img col-12 col-md-4">
-                    <img src="assets/images/1.jpg" alt="" class="img-thumbnail">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a href="">Прикольная статья на тему FNAF</a>
-                    </h3>
-                    <i class="far fa-user">Имя автора</i>
-                    <i class="far fa-calendar">Mar 11, 2020</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi cupiditate ducimus
-                        eligendi esse facere facilis reprehenderit. Accusamus, ipsum?
-                    </p>
-                </div>
-            </div>
-            <div class="post row">
-                <div class="img col-12 col-md-4">
-                    <img src="assets/images/1.jpg" alt="" class="img-thumbnail">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a href="">Прикольная статья на тему FNAF</a>
-                    </h3>
-                    <i class="far fa-user"> Имя автора</i>
-                    <i class="far fa-calendar"> Mar 11, 2020</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi cupiditate ducimus
-                        eligendi esse facere facilis reprehenderit. Accusamus, ipsum?
-                    </p>
-                </div>
-            </div>
-            <div class="post row">
-                <div class="img col-12 col-md-4">
-                    <img src="assets/images/1.jpg" alt="" class="img-thumbnail">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a href="">Прикольная статья на тему FNAF</a>
-                    </h3>
-                    <i class="far fa-user"> Имя автора</i>
-                    <i class="far fa-calendar"> Mar 11, 2020</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi cupiditate ducimus
-                        eligendi esse facere facilis reprehenderit. Accusamus, ipsum?
-                    </p>
-                </div>
-            </div>
-            <div class="post row">
-                <div class="img col-12 col-md-4">
-                    <img src="assets/images/1.jpg" alt="" class="img-thumbnail">
-                </div>
-                <div class="post_text col-12 col-md-8">
-                    <h3>
-                        <a href="">Прикольная статья на тему FNAF</a>
-                    </h3>
-                    <i class="far fa-user"> Имя автора</i>
-                    <i class="far fa-calendar"> Mar 11, 2020</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi cupiditate ducimus
-                        eligendi esse facere facilis reprehenderit. Accusamus, ipsum?
-                    </p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
 
         <!--        Sidebar Content-->

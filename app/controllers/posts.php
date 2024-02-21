@@ -1,9 +1,10 @@
 <?php
 require_once(ROOT . '/app/database/db.php');
-if (!$_SESSION) {
-    header('location: ' . BASE_URL . '/auth.php');
+if (str_contains($_SERVER['SCRIPT_FILENAME'], 'admin')) {
+    if ($_SESSION['admin'] == 0) {
+        header('location: ' . BASE_URL . 'auth.php');
+    }
 }
-
 $statusMessage = [];
 $categories = selectAny('categories', [], 0);
 $posts = selectAllFromPostsWithUsers('posts', 'users');

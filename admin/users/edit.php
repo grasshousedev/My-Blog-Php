@@ -1,8 +1,9 @@
 <?php
 include("../../path.php");
 include(ROOT . "/app/controllers/users.php");
-require_once(ROOT . "/app/include/head.php");
+include(ROOT . "/app/include/head.php");
 ?>
+
 <body>
 
 <?php include("../../app/include/header_admin.php"); ?>
@@ -12,11 +13,15 @@ require_once(ROOT . "/app/include/head.php");
 
         <div class="posts col-9">
             <?php require_once("../../app/include/buttons_admin.php") ?>
-            <form action="create.php" method="POST">
+            <form action="edit.php" method="POST">
 
                 <div class="row title-table">
                     <h2>Добавить пользователя</h2>
                 </div>
+                <div class="mb-3 col err">
+                    <?php require_once(ROOT . "/app/errors/error_info.php"); ?>
+                </div>
+                <input name="id" value="<?= $id ?>" type="hidden">
                 <div class="mb-3 col err">
                     <?php require_once(ROOT . "/app/errors/error_info.php"); ?>
                 </div>
@@ -48,7 +53,7 @@ require_once(ROOT . "/app/include/head.php");
                     <?php endif; ?>
                 </select>
                 <div class="col">
-                    <button name="create-user" class="btn btn-primary" type="submit">Создать пользователя</button>
+                    <button name="edit-user" class="btn btn-primary" type="submit">Создать пользователя</button>
                 </div>
             </form>
 

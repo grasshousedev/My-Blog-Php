@@ -104,7 +104,7 @@ function delete($table, $param)
 
 // Выборка записей с автором в админку
 
-function selectAllFromPostsWithUsers($table_posts, $table_users) {
+function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
     global $pdo;
     $sql = "
     SELECT 
@@ -117,6 +117,17 @@ function selectAllFromPostsWithUsers($table_posts, $table_users) {
     t1.created_date,
     t2.username
     FROM `$table_posts` AS t1 JOIN $table_users AS t2 ON t1.id_user = t2.id";
+    if($params) {
+        $i = 0;
+        foreach($params as $key => $value) {
+            if($i === 0) {
+                $sql .= " WHERE `$key` = '$value'";
+            } else {
+                $sql .= " AND `$key` = '$value'";
+            }
+            $i++;
+        }
+    }
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
