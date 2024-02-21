@@ -22,7 +22,14 @@ require_once(ROOT . "/app/include/head.php");
             <?php foreach($posts as $key=>$post): ?>
                 <div class="row post">
                     <div class="id col-1"><?=$key+1?></div>
-                    <div class="title col-4"><?=$post['title']?></div>
+                    <div class="title col-4">
+                        <?php
+                        if(strlen($post['title']) > 30) {
+                            echo mb_substr($post['title'], 0, 30, 'utf8') . '...';
+                        } else {
+                            echo $post['title'];
+                        }
+                        ?></div>
                     <div class="author col-3"><?=$post['username']?></div>
                     <div class="edit col-1"><a href="edit.php?id=<?=$post['id']?>">edit</a></div>
                     <div class="delete col-1"><a href="edit.php?delete_id=<?=$post['id']?>">delete</a></div>

@@ -58,16 +58,29 @@ require_once("app/include/head.php");
             <?php foreach($posts as $key=>$post) : ?>
             <div class="post row">
                 <div class="img col-12 col-md-4">
-                    <img src="assets/images/posts/<?=$post['img']?>" alt="" class="img-thumbnail">
+                    <img src="<?=BASE_URL . '/assets/images/posts/' . $post['img']?>" alt="<?=$post['title']?>" class="img-thumbnail">
                 </div>
                 <div class="post_text col-12 col-md-8">
                     <h3>
-                        <a href=""><?=$post['title']?></a>
+                        <a href=""><?php
+                            if(strlen($post['title']) > 50) {
+                                echo mb_substr($post['title'], 0, 50, 'utf8') . '...';
+                            } else {
+                                echo $post['title'];
+                            }
+                            ?>
+                        </a>
                     </h3>
                     <i class="far fa-user"> <?=$post['username']?></i>
                     <i class="far fa-calendar"><?=$post['created_date']?></i>
                     <p class="preview-text">
-                        <?=$post['content']?>
+                        <?php
+                        if(strlen($post['content']) > 150) {
+                        echo mb_substr($post['content'], 0, 150, 'utf8') . '...';
+                        } else {
+                            echo $post['content'];
+                        }
+                        ?>
                     </p>
                 </div>
             </div>
