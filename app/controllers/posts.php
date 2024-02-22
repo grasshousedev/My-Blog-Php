@@ -67,6 +67,11 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
     }
 }
 
+else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
+{
+    update('posts', $_GET['id'], ['status'=>$_GET['status']]);
+    header("location: " . BASE_URL . "/admin/posts/index.php");
+}
 // Получение данных при нажатии кнопки изменения статьи
 else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $post = selectAny('posts', ['id' => $_GET['id']], 1);
@@ -79,12 +84,6 @@ else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 }
 
 // Функция для переключения метки опубликовано (status)
-else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
-{
-    update('posts', $_GET['id'], ['status'=>$_GET['status']]);
-    header("location: " . BASE_URL . "/admin/posts/index.php");
-}
-
 // Удаление статьи
 else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];

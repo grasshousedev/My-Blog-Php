@@ -160,6 +160,17 @@ Single post
 }
 
 /*
+Comments
+ */
+.comments h3{
+    margin: 20px 0;
+}
+
+.comments h5 {
+    padding-bottom: 30px;
+}
+
+/*
 FORMS
  */
 .reg_form h2 {

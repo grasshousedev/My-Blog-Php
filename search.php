@@ -2,9 +2,15 @@
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
 require_once("app/include/head.php");
-if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['search-row'])) {
-    $posts = searchInTitleAndContent($_POST['search-row'], 'posts', 'users');
+$page = $_GET['page'] ?? 1;
+$limit = 5;
+$offset = $limit * ($page-1);
+if($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['search-row'])) {
+    $totalPosts = searchInTitleAndContent($_GET['search-row'], 'posts', 'users');
+    $posts = array_slice($totalPosts, $offset, $limit);
+    $total_pages = ceil(count($totalPosts) / $limit);
 }
+
 ?>
 
 
@@ -61,6 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['search-row'])) {
             <?php else: ?>
             <h3>По вашему запросу ничего не найдено</h3>
             <?php endif; ?>
+            <?php require_once(ROOT . '/app/include/pagination.php') ?>
         </div>
 
         <!--        Sidebar Content-->

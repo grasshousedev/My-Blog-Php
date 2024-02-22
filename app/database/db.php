@@ -102,8 +102,7 @@ function delete($table, $param)
     dbCheckError($query);
 }
 
-// Выборка записей с автором в админку, $params = параметры, которые должны быть соблюдены в первой таблице
-
+// Выборка записей с автором, $params = параметры, которые должны быть соблюдены в первой таблице
 function selectAllFromPostsWithUsers($table_posts, $table_users, $params = [], $limit = 0, $offset = 0)
 {
     global $pdo;
@@ -142,6 +141,36 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = [], $
 
 }
 
+function selectAllCommentsWithPosts($table_comments, $table_posts, $params = [])
+{
+    global $pdo;
+    $sql = "
+    SELECT 
+        t1.id,
+        t1.status,
+        t1.email,
+        t1.comment,
+        t1.id_post,
+        t2.title
+    FROM `$table_comments` AS t1 JOIN $table_posts AS t2 ON t1.id_post = t2.id";
+    if ($params) {
+        $i = 0;
+        foreach ($params as $key => $value) {
+            if ($i === 0) {
+                $sql .= " WHERE t1.`$key` = '$value'";
+            } else {
+                $sql .= " AND t1.`$key` = '$value'";
+            }
+            $i++;
+        }
+    }
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+
+}
+
 function searchInTitleAndContent($text, $table_first, $table_second)
 {
     $text = trim(strip_tags(htmlspecialchars($text)));
@@ -154,6 +183,30 @@ function searchInTitleAndContent($text, $table_first, $table_second)
         WHERE posts.title LIKE '%$text%'
         OR posts.content LIKE '%$text%'
     ";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+function selectCommentsWithUsers($table_comments, $table_users, $params = []) {
+    global $pdo;
+    $sql = "SELECT
+    comments.*, users.username
+    FROM $table_comments as comments
+    LEFT JOIN $table_users as users
+    ON comments.email = users.email
+    ";
+    if($params) {
+        $i = 0;
+        foreach($params as $key=>$value) {
+            if($i == 0)
+                $sql .= " WHERE comments.`$key`='$value'";
+            else
+                $sql .= " AND comments.`$key`='$value'";
+            $i++;
+        }
+    }
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
