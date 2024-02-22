@@ -1,18 +1,24 @@
 <?php
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
+$page = $_GET['page'] ?? 1;
+$limit = 2;
+$offset = $limit * ($page-1);
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_category'])) {
     $category_search = true;
-    $posts = selectAllFromPostsWithUsers('posts', 'users', ['id_category' => $_GET['id_category'], 'status'=>1]);
+    $posts = selectAllFromPostsWithUsers('posts', 'users', ['id_category' => $_GET['id_category'], 'status'=>1], $limit, $offset);
     $category = selectAny('categories', ['id' => $_GET['id_category']], 1)['name'];
+    $total_pages = ceil(countRow('posts', ['status'=>1, 'id_category' => $_GET['id_category']]) / $limit);
 
 } else {
     $category_search = false;
-    $posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1]);
+    $posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1], $limit, $offset);
+    $total_pages = ceil(countRow('posts', ['status'=>1]) / $limit);
+
 }
+
 require_once("app/include/head.php");
 ?>
-
 
 
 <body>
@@ -38,6 +44,7 @@ require_once("app/include/head.php");
             <?php else: ?>
             <h2><?=$category?></h2>
             <?php endif; ?>
+            <?php if(isset($posts) && count($posts)): ?>
             <?php foreach($posts as $key=>$post) : ?>
 
             <div class="post row">
@@ -77,11 +84,16 @@ require_once("app/include/head.php");
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php else: ?>
+            <h3>Ни одной записи не найдено</h3>
+            <?php endif; ?>
+            <?php include(ROOT . '/app/include/pagination.php');?>
         </div>
 
         <!--        Sidebar Content-->
         <?php include(ROOT . '/app/include/sidebar.php') ?>
     </div>
+
 </div>
 <!--Main end-->
 <?php include("app/include/footer.php") ?>

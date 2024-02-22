@@ -39,7 +39,7 @@ function selectAny($table, $params = [], $number = 0)
             $i++;
         }
     }
-    if($number != 0)
+    if ($number != 0)
         $sql = $sql . " LIMIT $number";
 
 
@@ -104,7 +104,8 @@ function delete($table, $param)
 
 // Выборка записей с автором в админку, $params = параметры, которые должны быть соблюдены в первой таблице
 
-function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
+function selectAllFromPostsWithUsers($table_posts, $table_users, $params = [], $limit = 0, $offset = 0)
+{
     global $pdo;
     $sql = "
     SELECT 
@@ -117,16 +118,22 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
     t1.created_date,
     t2.username
     FROM `$table_posts` AS t1 JOIN $table_users AS t2 ON t1.id_user = t2.id";
-    if($params) {
+    if ($params) {
         $i = 0;
-        foreach($params as $key => $value) {
-            if($i === 0) {
+        foreach ($params as $key => $value) {
+            if ($i === 0) {
                 $sql .= " WHERE t1.`$key` = '$value'";
             } else {
                 $sql .= " AND t1.`$key` = '$value'";
             }
             $i++;
         }
+    }
+    if ($limit) {
+        $sql .= " LIMIT $limit ";
+    }
+    if ($offset) {
+        $sql .= " OFFSET $offset";
     }
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -135,7 +142,8 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
 
 }
 
-function searchInTitleAndContent($text, $table_first, $table_second) {
+function searchInTitleAndContent($text, $table_first, $table_second)
+{
     $text = trim(strip_tags(htmlspecialchars($text)));
     global $pdo;
     $sql = "SELECT
@@ -150,4 +158,25 @@ function searchInTitleAndContent($text, $table_first, $table_second) {
     $query->execute();
     dbCheckError($query);
     return $query->fetchAll();
+}
+
+function countRow($table_posts, $params = [])
+{
+    $sql = "SELECT COUNT(*) FROM $table_posts";
+    global $pdo;
+    if ($params) {
+        $i = 0;
+        foreach ($params as $key => $value) {
+            if ($i === 0) {
+                $sql .= " WHERE `$key` = '$value'";
+        } else {
+                $sql .= " AND `$key` = '$value'";
+            }
+            $i++;
+        }
+    }
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchColumn();
 }
