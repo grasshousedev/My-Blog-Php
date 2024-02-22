@@ -2,7 +2,9 @@
 include("path.php");
 include(ROOT . '/app/database/db.php');
 $post = selectAllFromPostsWithUsers('posts', 'users', ['id'=>$_GET['post']])[0];
-
+if($post['status'] != 1) {
+    header("location: " . BASE_URL);
+}
 require_once(ROOT . "/app/include/head.php");
 ?>
 <body>
@@ -18,14 +20,14 @@ require_once(ROOT . "/app/include/head.php");
                     <img src="<?=BASE_URL . 'assets/images/posts/' . $post['img']?>" alt="" class="img-thumbnail">
                 </div>
                 <div class="info">
-                    <i class="far fa-user"><?=$post['username']?> </i>
+                    <i class="far fa-user"><?=$post['username']?></i>
                     <i class="far fa-calendar"><?=$post['created_date']?></i>
                 </div>
                 <div class="single_post_text col-12">
                     <?=$post['content']?>
                 </div>
             </div>
-            <?php include(ROOT . '/app/include/comments.php') ?>
+            <?php include(ROOT . '/app/include/comments.php'); ?>
         </div>
 
         <?php include(ROOT . '/app/include/sidebar.php'); ?>

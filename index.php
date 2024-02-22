@@ -1,7 +1,7 @@
 <?php
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
-$page = $_GET['page'] ?? 1;
+$page = isset($_GET['page']) && $_GET['page'] > 0 ? $_GET['page'] : 1;
 $limit = 5;
 $offset = $limit * ($page-1);
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_category'])) {
