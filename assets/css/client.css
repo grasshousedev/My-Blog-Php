@@ -38,14 +38,15 @@
     width: 100%;
 }
 
-.carousel-caption h5 a {
+.carousel-caption h5 {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
 }
 
-.carousel-caption h5 a:hover {
+.carousel-caption h5:hover {
     text-decoration: underline;
+    opacity: 0.6;
 }
 
 /*
