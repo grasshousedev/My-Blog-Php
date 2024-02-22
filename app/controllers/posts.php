@@ -35,16 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_post'])) {
         $post = selectAny('posts', ['id' => $id], 1);
         header('location: ' . BASE_URL . 'admin/posts/index.php');
     }
-} else {
-    $id = '';
-    $title = '';
-    $content = '';
-    $status = '';
-    $id_category = '';
 }
-
 // Обновление статьи
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
+else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
     $post = [];
     $id = $_POST['id'];
     $title = trim($_POST['title']);
@@ -72,35 +65,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_post'])) {
         update('posts', $id, $post);
         header('location: ' . BASE_URL . 'admin/posts/index.php');
     }
-} else {
-    $title = '';
-    $content = '';
-    $status = isset($_POST['status']) ? 1 : 0;
-    $id_category = '';
 }
 
 // Получение данных при нажатии кнопки изменения статьи
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
+else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $post = selectAny('posts', ['id' => $_GET['id']], 1);
     $id = $post['id'];
     $title = $post['title'];
+
     $content = $post['content'];
     $id_category = $post['id_category'];
     $status = $post['status'];
 }
 
 // Функция для переключения метки опубликовано (status)
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
+else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['status']))
 {
     update('posts', $_GET['id'], ['status'=>$_GET['status']]);
     header("location: " . BASE_URL . "/admin/posts/index.php");
 }
 
 // Удаление статьи
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
+else if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
     delete('posts', ['id' => $id]);
     header("location: " . BASE_URL . "/admin/posts/index.php");
+} else {
+    $title = '';
+    $content = '';
+    $status = isset($_POST['status']) ? 1 : 0;
+    $id_category = '';
 }
 
 // Функция для проверки значений, которые в нее передаются
