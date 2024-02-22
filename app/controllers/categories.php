@@ -10,8 +10,8 @@ $statusMessage = [];
 
 // Создание категории
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['category-create'])) {
-    $name = $_POST['name'];
-    $description = $_POST['description'];
+    $name = trim($_POST['name']);
+    $description = trim($_POST['description']);
     $statusMessage = checkInput($name, $description);
     if (!count($statusMessage)) {
         if (!empty(selectAny('categories', ['name'=>$name]))) {
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
 }
 
 // Получение и проверка полученных из формы данных
-function checkInput($name, $description)
+function checkInput($name, $description) : array
 {
     $statusMessage = [];
     if ($name === '' || $description === '') {

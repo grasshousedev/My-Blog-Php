@@ -55,24 +55,32 @@ require_once("app/include/head.php");
         <div class="main-content col-md-9 col-12">
             <h2>Последние публикации</h2>
             <?php foreach($posts as $key=>$post) : ?>
+
             <div class="post row">
                 <div class="img col-12 col-md-4">
+                    <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>">
                     <img src="<?=BASE_URL . '/assets/images/posts/' . $post['img']?>" alt="<?=$post['title']?>" class="img-thumbnail">
+                    </a>
+
                 </div>
-                <div class="post_text col-12 col-md-8">
+
+                <div class="post_text co-12 col-md-8">
                     <h3>
-                        <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>"><?php
+                        <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>">
+
+                        <?php
                             if(iconv_strlen($post['title']) > 50) {
-                                echo strlen($post['title']);
                                 echo mb_substr($post['title'], 0, 50, 'utf8') . '...';
                             } else {
                                 echo $post['title'];
                             }
                             ?>
                         </a>
+
+
                     </h3>
-                    <i class="far fa-user"> <?=$post['username']?></i>
-                    <i class="far fa-calendar"><?=$post['created_date']?></i>
+                    <i class="far fa-user">  <?=$post['username']?></i>
+                    <i class="far fa-calendar">  <?=$post['created_date']?></i>
                     <p class="preview-text">
                         <?php
                         if(iconv_strlen($post['content']) > 150) {

@@ -17,19 +17,19 @@ require_once(ROOT . "/app/include/head.php");
             </div>
             <div class="row add-post">
                 <form action="edit.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $id; ?>">
+                    <input type="hidden" name="id" value="<?=$id;?>">
                     <div class="mb-3 col err">
                         <?php include(ROOT . "/app/errors/error_info.php") ?>
                     </div>
                     <div class="col mb-4">
                         <label for="title" class="form-label">Заголовок статьи</label>
-                        <input value="<?= $title ?>" name="title" type="text" class="form-control" id="title"
+                        <input value="<?=htmlspecialchars($title)?>" name="title" type="text" class="form-control" id="title"
                                placeholder="Заголовок"
                                aria-label="Название статьи">
                     </div>
                     <div class="col mb-4">
                         <label for="editor" class="form-label">Текст статьи</label>
-                        <textarea name="content" class="form-control" id="editor" rows="6"><?=$content?></textarea>
+                        <textarea name="content" class="form-control" id="editor" rows="6"><?=htmlspecialchars($content)?></textarea>
                     </div>
                     <div class="input-group col mb-4">
                         <input name="img" type="file" class="form-control" id="picture">
