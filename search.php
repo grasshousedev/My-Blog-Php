@@ -1,15 +1,10 @@
 <?php
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
-$posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1]);
-$topCategory = selectAny('categories', ['name'=>'Лучшие публикации'],1)['id'];
-$topPosts = [];
-foreach($posts as $key=>$post) {
-    if ($post['id_category']  == $topCategory){
-        $topPosts[] = $post;
-    }
-}
 require_once("app/include/head.php");
+if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['search-row'])) {
+    $posts = searchInTitleAndContent($_POST['search-row'], 'posts', 'users');
+}
 ?>
 
 
@@ -18,42 +13,12 @@ require_once("app/include/head.php");
 
 <?php include("app/include/header.php"); ?>
 
-<!--Блок карусели-->
-<div class="container">
-    <div class="row">
-        <h2 class="slider-title">Лучшие публикации</h2>
-    </div>
-    <div id="carouselExampleCaptions" class="carousel slide">
-        <div class="carousel-inner">
-            <?php foreach($topPosts as $key=>$post):?>
-            <div class="carousel-item <?php if($key == 0) {
-                echo 'active';
-            }  ?>">
-                <img src="<?=BASE_URL . 'assets/images/posts/' . $post['img']?>" class="d-block w-100" alt="...">
-                <div class="carousel-caption-hack carousel-caption d-none d-md-block">
-                    <h5><a href="<?=BASE_URL . 'single.php?post=' . $post['id']?>"><?=$post['title']?></a></h5>
-                </div>
-            </div>
-            <?php endforeach;?>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
-<!--Блок карусели END-->
 <!--Main-->
 <div class="container">
     <div class="content row">
         <div class="main-content col-md-9 col-12">
-            <h2>Последние публикации</h2>
+            <h2>Результаты поиска</h2>
+            <?php if(isset($posts) && count($posts)):?>
             <?php foreach($posts as $key=>$post) : ?>
 
             <div class="post row">
@@ -83,8 +48,8 @@ require_once("app/include/head.php");
                     <i class="far fa-calendar">  <?=$post['created_date']?></i>
                     <p class="preview-text">
                         <?php
-                        if(iconv_strlen($post['content']) > 120) {
-                        echo mb_substr($post['content'], 0, 120, 'utf8') . '...';
+                        if(iconv_strlen($post['content']) > 150) {
+                        echo mb_substr($post['content'], 0, 150, 'utf8') . '...';
                         } else {
                             echo $post['content'];
                         }
@@ -93,6 +58,9 @@ require_once("app/include/head.php");
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php else: ?>
+            <h3>По вашему запросу ничего не найдено</h3>
+            <?php endif; ?>
         </div>
 
         <!--        Sidebar Content-->

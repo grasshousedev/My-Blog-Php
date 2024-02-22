@@ -76,10 +76,14 @@
     padding: 8px;
     border-radius: 3px;
     height: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .main-content .post_text h3 {
     margin: 14px 0;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .main-content .post_text h3 a:hover {

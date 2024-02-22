@@ -39,9 +39,9 @@ require_once(ROOT . "/app/include/head.php");
                     <select name="category" class="form-select mb-2" aria-label="Default select example">
                         <?php foreach ($categories as $key => $value): ?>
                             <?php if ($value['id'] == $id_category):?>
-                                <option value="<?= $value['id']; ?>" selected><?= $value['name'];?></option>
+                                <option value="<?= $value['id']; ?>" selected><?=htmlspecialchars($value['name']);?></option>
                             <?php else: ?>
-                                <option value="<?= $value['id']; ?>"><?= $value['name']; ?></option>
+                                <option value="<?= $value['id']; ?>"><?=htmlspecialchars($value['name']);?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>

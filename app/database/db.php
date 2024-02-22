@@ -134,3 +134,20 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
     return $query->fetchAll();
 
 }
+
+function searchInTitleAndContent($text, $table_first, $table_second) {
+    $text = trim(strip_tags(htmlspecialchars($text)));
+    global $pdo;
+    $sql = "SELECT
+        posts.*, users.username
+        FROM $table_first as posts
+        JOIN $table_second as users
+        ON posts.id_user = users.id
+        WHERE posts.title LIKE '%$text%'
+        OR posts.content LIKE '%$text%'
+    ";
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
