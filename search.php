@@ -1,50 +1,24 @@
 <?php
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
-$page = $_GET['page'] ?? 1;
-$limit = 2;
-$offset = $limit * ($page-1);
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_category'])) {
-    $category_search = true;
-    $posts = selectAllFromPostsWithUsers('posts', 'users', ['id_category' => $_GET['id_category'], 'status'=>1], $limit, $offset);
-    $category = selectAny('categories', ['id' => $_GET['id_category']], 1)['name'];
-    $total_pages = ceil(countRow('posts', ['status'=>1, 'id_category' => $_GET['id_category']]) / $limit);
-
-} else {
-    $category_search = false;
-    $posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1], $limit, $offset);
-    $total_pages = ceil(countRow('posts', ['status'=>1]) / $limit);
-
-}
-
 require_once("app/include/head.php");
+if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['search-row'])) {
+    $posts = searchInTitleAndContent($_POST['search-row'], 'posts', 'users');
+}
 ?>
+
 
 
 <body>
 
-<?php
-    include("app/include/header.php");
-?>
+<?php include("app/include/header.php"); ?>
 
-<!--Блок карусели-->
-<div class="container">
-    <?php if(!$category_search)
-    include(ROOT . '/app/include/carousel.php');
-    ?>
-</div>
-
-<!--Блок карусели END-->
 <!--Main-->
 <div class="container">
     <div class="content row">
         <div class="main-content col-md-9 col-12">
-            <?php if(!$category_search): ?>
-            <h2>Последние публикации</h2>
-            <?php else: ?>
-            <h2><?=$category?></h2>
-            <?php endif; ?>
-            <?php if(isset($posts) && count($posts)): ?>
+            <h2>Результаты поиска</h2>
+            <?php if(isset($posts) && count($posts)):?>
             <?php foreach($posts as $key=>$post) : ?>
 
             <div class="post row">
@@ -74,8 +48,8 @@ require_once("app/include/head.php");
                     <i class="far fa-calendar">  <?=$post['created_date']?></i>
                     <p class="preview-text">
                         <?php
-                        if(iconv_strlen($post['content']) > 120) {
-                        echo mb_substr($post['content'], 0, 120, 'utf8') . '...';
+                        if(iconv_strlen($post['content']) > 150) {
+                        echo mb_substr($post['content'], 0, 150, 'utf8') . '...';
                         } else {
                             echo $post['content'];
                         }
@@ -85,15 +59,13 @@ require_once("app/include/head.php");
             </div>
             <?php endforeach; ?>
             <?php else: ?>
-            <h3>Ни одной записи не найдено</h3>
+            <h3>По вашему запросу ничего не найдено</h3>
             <?php endif; ?>
-            <?php include(ROOT . '/app/include/pagination.php');?>
         </div>
 
         <!--        Sidebar Content-->
         <?php include(ROOT . '/app/include/sidebar.php') ?>
     </div>
-
 </div>
 <!--Main end-->
 <?php include("app/include/footer.php") ?>

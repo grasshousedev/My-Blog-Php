@@ -1,8 +1,8 @@
 <?php
 include("path.php");
 include(ROOT . '/app/database/db.php');
-$post = selectAny('posts', ['id' => $_GET['post']], 1);
-$author = selectAny('users', ['id' => $post['id_user']], 1);
+$post = selectAllFromPostsWithUsers('posts', 'users', ['id'=>$_GET['post']])[0];
+
 require_once(ROOT . "/app/include/head.php");
 ?>
 <body>
@@ -18,7 +18,7 @@ require_once(ROOT . "/app/include/head.php");
                     <img src="<?=BASE_URL . 'assets/images/posts/' . $post['img']?>" alt="" class="img-thumbnail">
                 </div>
                 <div class="info">
-                    <i class="far fa-user"><?=$author['username']?> </i>
+                    <i class="far fa-user"><?=$post['username']?> </i>
                     <i class="far fa-calendar"><?=$post['created_date']?></i>
                 </div>
                 <div class="single_post_text col-12">

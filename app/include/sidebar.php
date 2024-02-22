@@ -6,8 +6,8 @@ $categories = selectAny('categories');
 <div class="sidebar col-md-3 col-12">
     <div class="section search">
         <h3>Поиск</h3>
-        <form action="/" method="post">
-            <input type="text" name="search-term" class="text-input" placeholder="Введите запрос">
+        <form action="<?=BASE_URL . 'search.php'?>" method="post">
+            <input type="text" name="search-row" class="text-input" placeholder="Введите запрос">
         </form>
     </div>
 
@@ -15,7 +15,7 @@ $categories = selectAny('categories');
         <h3>Категории</h3>
         <ul>
             <?php foreach($categories as $key => $value): ?>
-                <li><a href="#"><?=$value['name']?></a></li>
+                <li><a href="<?=BASE_URL . 'index.php?id_category=' . $value['id']?>"><?=$value['name']?></a></li>
             <?php endforeach;?>
         </ul>
     </div>

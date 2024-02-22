@@ -38,7 +38,7 @@ require_once(ROOT . "/app/include/head.php");
                     <p>Выберите категорию:</p>
                     <select name="category" class="form-select mb-2" aria-label="Default select example">
                         <?php foreach($categories as $key=>$value): ?>
-                        <option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+                        <option value="<?=$value['id'];?>"><?=htmlspecialchars($value['name']);?></option>
                         <?php endforeach; ?>
                     </select>
                     <div class="form-check">
