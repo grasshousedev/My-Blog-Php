@@ -2,19 +2,18 @@
 require_once("path.php");
 require_once(ROOT . '/app/database/db.php');
 $page = $_GET['page'] ?? 1;
-$limit = 2;
+$limit = 5;
 $offset = $limit * ($page-1);
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_category'])) {
-    $category_search = true;
+    $show_carousel = false;
     $posts = selectAllFromPostsWithUsers('posts', 'users', ['id_category' => $_GET['id_category'], 'status'=>1], $limit, $offset);
-    $category = selectAny('categories', ['id' => $_GET['id_category']], 1)['name'];
     $total_pages = ceil(countRow('posts', ['status'=>1, 'id_category' => $_GET['id_category']]) / $limit);
+    $category = selectAny('categories', ['id' => $_GET['id_category']], 1)['name'];
 
 } else {
-    $category_search = false;
+    $show_carousel = true;
     $posts = selectAllFromPostsWithUsers('posts', 'users', ['status' => 1], $limit, $offset);
     $total_pages = ceil(countRow('posts', ['status'=>1]) / $limit);
-
 }
 
 require_once("app/include/head.php");
@@ -29,7 +28,7 @@ require_once("app/include/head.php");
 
 <!--Блок карусели-->
 <div class="container">
-    <?php if(!$category_search)
+    <?php if($show_carousel)
     include(ROOT . '/app/include/carousel.php');
     ?>
 </div>
@@ -39,7 +38,7 @@ require_once("app/include/head.php");
 <div class="container">
     <div class="content row">
         <div class="main-content col-md-9 col-12">
-            <?php if(!$category_search): ?>
+            <?php if($show_carousel): ?>
             <h2>Последние публикации</h2>
             <?php else: ?>
             <h2><?=$category?></h2>
