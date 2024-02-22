@@ -102,7 +102,7 @@ function delete($table, $param)
     dbCheckError($query);
 }
 
-// Выборка записей с автором в админку
+// Выборка записей с автором в админку, $params = параметры, которые должны быть соблюдены в первой таблице
 
 function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
     global $pdo;
@@ -121,9 +121,9 @@ function selectAllFromPostsWithUsers($table_posts, $table_users, $params = []) {
         $i = 0;
         foreach($params as $key => $value) {
             if($i === 0) {
-                $sql .= " AND `$key` = '$value'";
+                $sql .= " WHERE t1.`$key` = '$value'";
             } else {
-                $sql .= " AND `$key` = '$value'";
+                $sql .= " AND t1.`$key` = '$value'";
             }
             $i++;
         }
