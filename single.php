@@ -25,6 +25,7 @@ require_once(ROOT . "/app/include/head.php");
                     <?=$post['content']?>
                 </div>
             </div>
+            <?php include(ROOT . '/app/include/comments.php') ?>
         </div>
 
         <?php include(ROOT . '/app/include/sidebar.php'); ?>

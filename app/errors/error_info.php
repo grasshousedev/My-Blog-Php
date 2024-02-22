@@ -1,5 +1,5 @@
 <?php if (count($statusMessage)): ?>
-    <ul>
+    <ul class="err">
         <?php foreach ($statusMessage as $key => $value): ?>
             <li><?= $value; ?></li>
         <?php endforeach; ?>

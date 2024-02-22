@@ -200,3 +200,7 @@ form div.err p {
     font-style: italic;
     font-size: 0.8rem;
 }
+.err li{
+    color: brown;
+    list-style: none;
+}
