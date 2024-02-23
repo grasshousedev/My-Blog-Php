@@ -21,7 +21,7 @@ require_once(ROOT . "/app/include/head.php");
             </div>
             <?php foreach($users as $key=>$user): ?>
             <div class="row post">
-                <div class="col-1"><?=$key+1?></div>
+                <div class="id col-1"><?=$key+1?></div>
                 <div class="col-5"><?=$user['username']?></div>
                 <?php if($user['admin']): ?>
                 <div class="col-4">Администратор</div>

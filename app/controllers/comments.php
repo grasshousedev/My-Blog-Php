@@ -68,9 +68,10 @@ elseif($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['btn-show-posted'])) 
         header('location: ' . BASE_URL . 'admin/comments/index.php');
 }
 // Получить комментарии в админке
-elseif($_SERVER['REQUEST_METHOD'] === "GET" && basename($_SERVER['SCRIPT_FILENAME']) === 'index.php'){
+elseif($_SERVER['REQUEST_METHOD'] === "GET" && basename($_SERVER['SCRIPT_FILENAME']) === 'index.php') {
     $comments = selectAllCommentsWithPosts('comments', 'posts');
 }
+// Получение одного комментария для страницы редактирования комментария
 elseif($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['id'])) {
     $object = selectCommentsWithUsers('comments', 'users', ['id'=>$_GET['id']])[0];
     $comment = $object['comment'];
