@@ -31,12 +31,12 @@ require_once(ROOT . "/app/include/head.php");
                         }
                         ?></div>
                     <div class="author col-3"><?=$post['username']?></div>
-                    <div class="edit col-1"><a href="edit.php?id=<?=$post['id']?>">edit</a></div>
-                    <div class="delete col-1"><a href="edit.php?delete_id=<?=$post['id']?>">delete</a></div>
+                    <div class="edit col-1"><a href="edit.php?id=<?=$post['id']?>"><i class="fa-solid fa-pen-to-square"></i></a></div>
+                    <div class="delete col-1"><a href="edit.php?delete_id=<?=$post['id']?>"><i class="fa-solid fa-trash"></i></a></div>
                     <?php if($post['status']):?>
-                    <div class="status col-2"><a href="edit.php?status=0&id=<?=$post['id']?>">unpublish</a></div>
+                    <div class="status col-2"><a href="edit.php?status=0&id=<?=$post['id']?>">В архив</a></div>
                     <?php else:?>
-                    <div class="status col-2"><a href="edit.php?status=1&id=<?=$post['id']?>">publish</a></div>
+                    <div class="status col-2"><a href="edit.php?status=1&id=<?=$post['id']?>">Опубликовать</a></div>
                     <?php endif;?>
                 </div>
             <?php endforeach;?>

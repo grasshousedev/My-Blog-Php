@@ -10,7 +10,6 @@ require_once(ROOT . "/app/include/head.php");
     <div class="row">
         <?php require_once("../../app/include/sidebar_admin.php"); ?>
         <div class="posts col-9">
-            <?php require_once("../../app/include/buttons_admin.php") ?>
 
             <div class="row title-table">
                 <h2>Управление комментариями</h2>
