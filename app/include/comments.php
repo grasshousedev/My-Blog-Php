@@ -35,7 +35,11 @@ include (ROOT . '/app/controllers/comments.php');
                     <div class="card w-100">
                         <div class="card-body p-4">
                             <div class="">
-                                <h5><?= $post['username'] ?></h5>
+                                <h5><?php if(isset($post['username'])){
+                                        echo $post['username'];
+                                    } else {
+                                    echo $post['email'];
+                                    } ?></h5>
                                 <p class="small"><?= $post['created_date'] ?></p>
                                 <p>
                                     <?= $post['comment'] ?>
