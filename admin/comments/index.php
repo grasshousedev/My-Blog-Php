@@ -13,6 +13,17 @@ require_once(ROOT . "/app/include/head.php");
 
             <div class="row title-table">
                 <h2>Управление комментариями</h2>
+                <form action="index.php" method="GET">
+                <div class="form-check">
+                    <label for="show_posted" class="form-check-label">Показывать опубликованные?</label>
+                    <?php if($show_posted):?>
+                    <input id="show_posted" type="checkbox" name="show_posted" class="form-check-input" checked>
+                    <?php else: ?>
+                    <input id="show_posted" type="checkbox" name="show_posted" class="form-check-input">
+                    <?php endif; ?>
+                    <button name="btn-show-posted" type="submit" class="btn btn-primary">Применить</button>
+                </div>
+                </form>
                 <div class="col-1">ID</div>
                 <div class="col-4">Название статьи</div>
                 <div class="col-4">Комментарий</div>
