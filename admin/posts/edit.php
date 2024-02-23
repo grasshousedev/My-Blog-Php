@@ -11,6 +11,7 @@ require_once(ROOT . "/app/include/head.php");
         <?php require_once("../../app/include/sidebar_admin.php"); ?>
 
         <div class="posts col-9">
+            <?php require_once("../../app/include/buttons_admin.php") ?>
 
             <div class="row title-table">
                 <h2>Редактирование записи</h2>

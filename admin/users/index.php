@@ -15,21 +15,21 @@ require_once(ROOT . "/app/include/head.php");
             <div class="row title-table">
                 <h2>Управление пользователями</h2>
                 <div class="col-1">ID</div>
-                <div class="col-4">Логин</div>
-                <div class="col-3">Роль</div>
-                <div class="col-4">Управление</div>
+                <div class="col-5">Логин</div>
+                <div class="col-4">Роль</div>
+                <div class="col-2">Управление</div>
             </div>
             <?php foreach($users as $key=>$user): ?>
             <div class="row post">
                 <div class="col-1"><?=$key+1?></div>
-                <div class="col-4"><?=$user['username']?></div>
+                <div class="col-5"><?=$user['username']?></div>
                 <?php if($user['admin']): ?>
-                <div class="col-3">Администратор</div>
+                <div class="col-4">Администратор</div>
                 <?php else: ?>
-                <div class="col-3">Пользователь</div>
+                <div class="col-4">Пользователь</div>
                 <?php endif; ?>
-                <div class="col-2 edit"><a href="edit.php?id=<?=$user['id']?>">edit</a></div>
-                <div class="col-2 delete"><a href="edit.php?delete_id=<?=$user['id']?>">delete</a></div>
+                <div class="col-1 edit"><a href="edit.php?id=<?=$user['id']?>"><i class="fa-solid fa-pen-to-square"></i></a></div>
+                <div class="col-1 delete"><a href="edit.php?delete_id=<?=$user['id']?>"><i class="fa-solid fa-trash"></i></a></div>
             </div>
             <?php endforeach;?>
 
