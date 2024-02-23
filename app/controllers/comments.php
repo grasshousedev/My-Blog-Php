@@ -12,6 +12,7 @@ $statusMessage = [];
 $email = '';
 $comment = '';
 $id_post = '';
+$show_posted = 1;
 
 // После нажатия кнопки отправить комментарий
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-comment'])) {
@@ -58,10 +59,19 @@ elseif($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn-delete'])) {
     delete('comments', ['id' => $_POST['id']]);
     header("location:" . BASE_URL . "admin/comments/index.php");
 }
+
+elseif($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['btn-show-posted'])) {
+    $show_posted = isset($_GET['show_posted']) ? 1 : 0;
+    if(!$show_posted)
+        $comments = selectAllCommentsWithPosts('comments', 'posts', ['status'=>0]);
+    else
+        header('location: ' . BASE_URL . 'admin/comments/index.php');
+}
 // Получить комментарии в админке
-elseif($_SERVER['REQUEST_METHOD'] === "GET" && basename($_SERVER['SCRIPT_FILENAME']) === 'index.php'){
+elseif($_SERVER['REQUEST_METHOD'] === "GET" && basename($_SERVER['SCRIPT_FILENAME']) === 'index.php') {
     $comments = selectAllCommentsWithPosts('comments', 'posts');
 }
+// Получение одного комментария для страницы редактирования комментария
 elseif($_SERVER['REQUEST_METHOD'] === "GET" && isset($_GET['id'])) {
     $object = selectCommentsWithUsers('comments', 'users', ['id'=>$_GET['id']])[0];
     $comment = $object['comment'];
