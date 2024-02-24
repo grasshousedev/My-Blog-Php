@@ -1,9 +1,9 @@
 <?php
 include('path.php');
-include(ROOT . '/app/database/db.php');
-if($_SESSION) {
-   $user = selectAny('users', ['id'=>$_SESSION['id']], 1);
-   tt($user);
+include(ROOT . '/app/controllers/profile.php');
+if ($_SESSION) {
+    $user = selectAny('users', ['id' => $_SESSION['id']], 1);
+    tt($user);
 }
 require_once(ROOT . "/app/include/head.php");
 ?>
@@ -14,20 +14,38 @@ require_once(ROOT . "/app/include/head.php");
 <div class="container">
     <div class="content row">
         <div class="main-content col-md-9 col-12">
-            <h2><?=$user['username']?></h2>
+            <h2>Ваш профиль</h2>
             <div class="row">
                 <div class="img col-6">
-                    <img src="<?=BASE_URL . 'assets/images/posts/' . $user['id_avatar']?>" alt="User avatar" class="img-thumbnail">
+                    <img src="<?= BASE_URL . 'assets/images/posts/' . $user['id_avatar'] ?>" alt="User avatar"
+                         class="img-thumbnail">
                 </div>
-                <div class="info col-6">
-                    <i class="far fa-user"><?=$post['username']?></i>
-                    <i class="far fa-calendar"><?=$post['created_date']?></i>
+                <div class="col">
+
+                <form action="profile.php" method="post">
+                    <input type="hidden" name="id" value="<?=$user['id']?>">
+                    <div class="row">
+                        <label for="login" class="form-label">Имя пользователя</label>
+                        <div class="info col-8">
+                            <input class="form-control" type="text" id="login" name="login" value="<?=$user['username']?>">
+                        </div>
+                        <div class="col-4">
+                            <button name="btn-change-login" type="submit" class="btn btn-primary">Изменить</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="form-label" for="email">Электронная почта</label>
+                        <div class="info col-8">
+                            <input class="form-control" type="email" id="email" name="email" value="<?= $user['email'] ?>">
+                        </div>
+                        <div class="col-4">
+                            <button name="btn-change-email" type="submit" class="btn btn-primary">Изменить</button>
+                        </div>
+                    </div>
+                </form>
                 </div>
-                <div class="single_post_text col-12">
-                    <?=$post['content']?>
-                </div>
+
             </div>
-            <?php include(ROOT . '/app/include/comments.php'); ?>
         </div>
 
         <?php include(ROOT . '/app/include/sidebar.php'); ?>

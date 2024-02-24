@@ -14,7 +14,7 @@
                             <?=$_SESSION['login']; ?>
                         </a>
                         <ul>
-                            <li><a href="#">Профиль</a></li>
+                            <li><a href="<?=BASE_URL . 'profile.php'?>">Профиль</a></li>
                             <li><a href="<?= BASE_URL . 'logout.php' ?>">Выйти</a></li>
                         </ul>
                     </li>
